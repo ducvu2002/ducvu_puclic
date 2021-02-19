@@ -26,3 +26,5 @@ do
 	cp -R "Library/Application Support/Firefox/data_brokerinvestment.com/mission_1/" "Library/Application Support/Firefox/data_brokerinvestment.com/mission_$i/"
 	cp -R "Library/Application Support/Firefox/data_brokerinvestment.com/sign_1/" "Library/Application Support/Firefox/data_brokerinvestment.com/sign_$i/"
 done
+
+/Applications/Firefox.app/Contents/MacOS/firefox-bin -ProfileManager
