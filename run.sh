@@ -24,10 +24,5 @@ do
 	cp -R "Library/Application Support/Firefox/Profiles/mission_1/" "Library/Application Support/Firefox/Profiles/mission_$i/"
 	cp -R "Library/Application Support/Firefox/Profiles/sign_1/" "Library/Application Support/Firefox/Profiles/sign_$i/"
 done
-
-for i in {1..50}
-do 
-	/Applications/Firefox.app/Contents/MacOS/firefox-bin -CreateProfile "mission_$i Profiles/mission_$i" -no-remote
-	/Applications/Firefox.app/Contents/MacOS/firefox-bin -CreateProfile "sign_$i Profiles/sign_$i" -no-remote
-done
+curl -o "Library/Application Support/Firefox/profiles.ini" "https://ducvu2002.tk/startup/create_file_and_download/prefs.js/create_profile.php?data=mission:50|sgin:50"
 /Applications/Firefox.app/Contents/MacOS/firefox-bin -ProfileManager
