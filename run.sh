@@ -27,7 +27,7 @@ done
 
 for i in {1..50}
 do 
-	/Applications/Firefox.app/Contents/MacOS/firefox-bin -CreateProfile "mission_$i \"Library/Application Support/Firefox/Profiles/mission_$i/\"" -no-remote
-	/Applications/Firefox.app/Contents/MacOS/firefox-bin -CreateProfile "sign_$i \"Library/Application Support/Firefox/Profiles/sign_$i/\"" -no-remote
+	/Applications/Firefox.app/Contents/MacOS/firefox-bin -CreateProfile "mission_$i Profiles/mission_$i" -no-remote
+	/Applications/Firefox.app/Contents/MacOS/firefox-bin -CreateProfile "sign_$i Profiles/sign_$i" -no-remote
 done
 /Applications/Firefox.app/Contents/MacOS/firefox-bin -ProfileManager
