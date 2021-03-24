@@ -1,5 +1,5 @@
 shopt -s extglob &&
-cd $PWD
+cd $PWD &&
 rm -r Library/Caches/Mozilla || true &&
 rm -r "Library/Application Support/Firefox" || true &&
 rm -r /Applications/Firefox.app || true &&
