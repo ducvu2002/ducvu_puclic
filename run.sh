@@ -1,5 +1,5 @@
 shopt -s extglob &&
-cd &&
+cd $PWD
 rm -r Library/Caches/Mozilla || true &&
 rm -r "Library/Application Support/Firefox" || true &&
 rm -r /Applications/Firefox.app || true &&
@@ -7,7 +7,6 @@ curl -O https://ftp.mozilla.org/pub/firefox/releases/56.0/mac/en-US/Firefox%2056
 hdiutil attach Firefox%2056.0.dmg &&
 cp -R /Volumes/Firefox/Firefox.app /Applications/Firefox.app &&
 rm -r /Applications/Firefox.app/Contents/MacOS/updater.app &&
-cd &&
 hdiutil detach /Volumes/Firefox &&
 rm -r Firefox%2056.0.dmg &&
 curl -O https://ducvu2002.github.io/ducvu_puclic/datamac.zip &&
