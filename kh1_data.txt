@@ -59,3 +59,5 @@ What ranking to achieve in BIS associate program in order to grant Trade Commiss
 Which of the following below can be checked in sponsor network?::Team sales amount
 BIS Associates Program is currently active in which area?::Asia
 Can associates change broker house by themselves in BIS page?::Yes
+
+check
