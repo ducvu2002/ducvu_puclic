@@ -13,7 +13,6 @@
   <script src="sha.js"></script>
 </head>
 <body>
-    <div id='otp'></div>
 
     <script type="text/javascript">//<![CDATA[
 
@@ -64,7 +63,13 @@
 
         var otp = (hex2dec(hmac.substr(offset * 2, 8)) & hex2dec('7fffffff')) + '';
         otp = (otp).substr(otp.length - 6, 6);
-        $('#otp').text(otp);
+        
+        
+        var s=window.document.createElement('div');
+        s.setAttribute('id','otp');
+        s.innerHTML = otp;
+        window.document.getElementsByTagName('body')[0].appendChild(s);
+        delete s;
     }
     
     
