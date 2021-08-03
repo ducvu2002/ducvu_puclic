@@ -27,13 +27,11 @@ function write_data(path, text) {
 function downloadURI(url, path, name) {
 
 	iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'URL GOTO=about:newtab');
-	iimPlayCode('SET !TIMEOUT_PAGE 2592000000' + "\n" + 'URL GOTO=' + url);
+	iimPlayCode('SET !TIMEOUT_PAGE 2592000' + "\n" + 'URL GOTO=' + url);
 	iimPlayCode("ONDOWNLOAD FOLDER=" + path + " FILE=" + name + " WAIT=NO");
-	iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'WAIT SECONDS=1');
+	iimPlayCode('WAIT SECONDS=5');
 	iimPlayCode("ONDOWNLOAD FOLDER=" + path + " FILE=" + name + " WAIT=NO");
-	iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'WAIT SECONDS=1');
-	iimPlayCode("ONDOWNLOAD FOLDER=" + path + " FILE=" + name + " WAIT=NO");
-	iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'WAIT SECONDS=1');
+	iimPlayCode('WAIT SECONDS=1');
 	return;
 
 	
