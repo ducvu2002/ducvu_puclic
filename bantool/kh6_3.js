@@ -120,6 +120,5 @@ while (window.document.querySelector(dom) != null) {
 
 iimPlayCode('URL GOTO=about:newtab');
 window.location.href = "download://download";
-iimPlayCode("WAIT SECONDS=10");
+iimPlayCode("WAIT SECONDS=5");
 iimPlayCode("TAB CLOSE");
-
