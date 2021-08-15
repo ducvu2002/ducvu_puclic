@@ -6,16 +6,16 @@ j2 = -1;
 var j2;
 
 function isNumeric(str) {
-	if (typeof str != "string") return false // we only process strings!  
-	return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-	!isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+  if (typeof str != "string") return false // we only process strings!  
+  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+         !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
 }
 
 var so_luong;
 while (true) {
 	so_luong = prompt('Nhập số luồng');
-	if (isNumeric(so_luong)) break;
-	alert('Nhập không đúng vui lòng nhập lại');
+    if (isNumeric(so_luong)) break;
+    alert('Nhập không đúng vui lòng nhập lại');
 }
 
 
@@ -143,7 +143,11 @@ function get_link_video() {
 	}
 	
 	window.document.querySelector('video').play();
-	while (window.document.querySelector('video').currentTime == 0) iimPlayCode('WAIT SECONDS=1');
+	t1 = new Date().getTime();
+	while (window.document.querySelector('video').currentTime == 0) {
+	    if (new Date().getTime() - t1 >= 60*1000) { return "NO_LINK"; }
+	    iimPlayCode('WAIT SECONDS=1');
+	}
 	
 	if ( !window.document.querySelector('video').src.startsWith('blob:') ) return window.document.querySelector('video').src;
 	iimPlayCode('WAIT SECONDS=1');
