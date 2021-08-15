@@ -4,18 +4,27 @@ var j; //0
 i2 = -1;
 j2 = -1;
 var j2;
-while (true) {
-	tinh_nang = prompt('Menu : ' + "\n" + '1. Download Hết' + "\n" + '2. Download tùy chọn');
-	if (tinh_nang == null) break;
-	if (tinh_nang == '1' || tinh_nang == '2') break;
-	alert('Nhập không đúng vui lòng nhập lại');
-}
-
 
 function isNumeric(str) {
   if (typeof str != "string") return false // we only process strings!  
   return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
          !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
+
+var so_luong;
+while (true) {
+	so_luong = prompt('Nhập số luồng');
+    if (isNumeric(so_luong)) break;
+    alert('Nhập không đúng vui lòng nhập lại');
+}
+
+
+
+while (true) {
+	tinh_nang = prompt('Menu : ' + "\n" + '1. Download Hết' + "\n" + '2. Download tùy chọn');
+	if (tinh_nang == null) break;
+	if (tinh_nang == '1' || tinh_nang == '2') break;
+	alert('Nhập không đúng vui lòng nhập lại');
 }
 
 switch(tinh_nang) {
@@ -100,7 +109,11 @@ function wait_load(link_current) {
 	
 
 path_list_download = get_path_run() + "Data\\manager_download\\";
+//title
 write_data(path_list_download, "list_download.txt", "Download video luyenthitop.vn (" + new Date().getTime() + ")");
+//so_luong
+write_data(path_list_download, "list_download.txt", so_luong);
+
 
 iimPlayCode('URL GOTO=about:newtab');
 path_save = get_csv(1,1);
