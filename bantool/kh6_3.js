@@ -174,13 +174,14 @@ while (window.document.querySelector(dom) != null) {
 		status_wait = wait_load(link_current);
 		
 		x = 0;
-		domx = ".ant-list-bordered .ant-list-item:nth-child(" + (++x) + ")>a";
+		domx = ".ant-list-bordered .ant-list-item:nth-child(" + (++x) + ")";
 		if ( status_wait == null ) {
 			while (window.document.querySelector(domx) != null) {
-				domx_video = window.document.querySelector(domx);
+				domx_video = window.document.querySelector(domx + ">a");
+				view_remaining = window.document.querySelector(domx + ">span").className;
 				if (x != 1) {
 					domx_video.click();
-					while (domx_video.className != "document-name active") { iimPlayCode('WAIT SECONDS=1'); }
+					while (domx_video.className != "document-name active" && view_remaining == "view-remaining") { iimPlayCode('WAIT SECONDS=1'); }
 					
 				}
 				link_video = get_link_video();
@@ -192,7 +193,7 @@ while (window.document.querySelector(dom) != null) {
 				} else {
 					write_data(path_list_download, "list_download.txt", path_save_video + ten_video + "|" + link_video);
 				}
-				domx = ".ant-list-bordered .ant-list-item:nth-child(" + (++x) + ")>a";
+				domx = ".ant-list-bordered .ant-list-item:nth-child(" + (++x) + ")";
 			}
 								
 			//tải file pdf
