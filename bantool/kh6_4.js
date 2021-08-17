@@ -79,6 +79,7 @@ function get_csv(line, col) {
 
 
 function write_data(path, text) {
+    path = path.replace(/ /g, '<SP>');
 	iimSet('text', text);
 	iimPlayCode(
 		'SET !EXTRACT {{text}}' + "\n" +
@@ -241,8 +242,8 @@ list_chuong = get_chuong(url_khoahoc);
 name_khoa_hoc = get_name_khoa_hoc();
 while (x < list_chuong.length) {
 	list_bai = get_bai(list_chuong[x][1]);
-	path = path_save + "\\" + name_khoa_hoc + list_chuong[x][0];
-	create_folder(path);
+	path_folder = path_save + "\\" + name_khoa_hoc + list_chuong[x][0];
+	create_folder(path_folder);
 	while (true) {
 		if (x == x2 && y == y2) {
 			x = list_chuong.length;
@@ -255,12 +256,12 @@ while (x < list_chuong.length) {
 		}
 		id_video = get_id_gd(list_bai[y][1]);
 		if (id_video == "https://nap.edu.vn/lesson-view/null") {
-			write_data(path_save, path + "\\" + list_bai[y][0] + " : hết lượt xem");
+			write_data(path_save, path_folder + "\\" + list_bai[y][0] + " : hết lượt xem");
 			y++;
 			continue;
 		}
 		
-		get_link_video(id_video, path, list_bai[y][0]);
+		get_link_video(id_video, path_folder, list_bai[y][0]);
 		y++;
 	}
 }
