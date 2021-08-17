@@ -241,6 +241,8 @@ list_chuong = get_chuong(url_khoahoc);
 name_khoa_hoc = get_name_khoa_hoc();
 while (x < list_chuong.length) {
 	list_bai = get_bai(list_chuong[x][1]);
+	path = path_save + "\\" + name_khoa_hoc + list_chuong[x][0];
+	create_folder(path);
 	while (true) {
 		if (x == x2 && y == y2) {
 			x = list_chuong.length;
@@ -252,8 +254,6 @@ while (x < list_chuong.length) {
 			break;
 		}
 		id_video = get_id_gd(list_bai[y][1]);
-		path = path_save + "\\" + name_khoa_hoc + list_chuong[x][0];
-		create_folder(path);
 		if (id_video == "https://nap.edu.vn/lesson-view/null") {
 			write_data(path_save, path + "\\" + list_bai[y][0] + " : hết lượt xem");
 			y++;
