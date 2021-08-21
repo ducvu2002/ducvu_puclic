@@ -3,7 +3,6 @@ var j; //0
 
 i2 = -1;
 j2 = -1;
-var j2;
 
 function isNumeric(str) {
   if (typeof str != "string") return false // we only process strings!  
