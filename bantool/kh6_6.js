@@ -1,15 +1,17 @@
 iimPlayCode('URL GOTO=about:newtab');
 path_save = get_csv(1,1);
 url_khoahoc = get_csv(2,1);
+id_khoa_hoc = new window.URL(url_khoahoc).searchParams.get("id");
+url_khoahoc = "https://chuvanbien.vn/course/learn?id=" + id_khoa_hoc;
 
 var muc, chuong1;
 var muc2 = -1;
 var chuong2 = -1;
 
 function isNumeric(str) {
-  if (typeof str != "string") return false // we only process strings!  
-  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-         !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+	if (typeof str != "string") return false // we only process strings!  
+	return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+	 !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
 }
 
 while (true) {
