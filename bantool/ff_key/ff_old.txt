@@ -1,0 +1,167 @@
+def center_window(root, w=300, h=200):
+    # get screen width and height
+    ws = root.winfo_screenwidth()
+    hs = root.winfo_screenheight()
+    # calculate position x, y
+    x = (ws / 2) - (w / 2)
+    y = (hs / 2) - (h / 2)
+    root.geometry('%dx%d+%d+%d' % (w, h, x, y))
+
+
+def check_run_program(program):
+    for proc in psutil.process_iter():
+        # check whether the process name matches
+        #print(proc.name())
+        try:
+            if any(procstr in proc.name() for procstr in [program]):
+                return True
+        except:
+            print()
+    return False
+
+'''Process kill function'''
+def close_program(program):
+    for proc in psutil.process_iter():
+        # check whether the process name matches
+        #print(proc.name())
+        try:
+            if any(procstr in proc.name() for procstr in [program]):
+                proc.kill()
+        except:
+            print()
+close_program('firefox')
+
+
+
+if len(sys.argv) > 1:
+    sys.exit()
+
+
+mess = ['Key này không tồn tại. Vui lòng nhập key khác :',
+        'SUCCESS',
+        'Key đã hết hạn sử dụng. Vui lòng nhập key khác :',
+        'Key này đã được sử dụng. Vui lòng nhập key khác :']
+
+
+path_run = path.dirname(sys.argv[0]).replace("/","\\")
+
+version = "2.1"
+path_key = path.join(os.getenv('APPDATA'), 'WindowsNT')
+name_exe = "FirefoxProtable.exe"
+link_server = "http://leducchinh.tk/Firefox/"
+name_key = "window.dll"
+md5_profile = path.join(path_run, "Data", "profile")
+os.makedirs(path_key, exist_ok=True)
+
+
+
+key = ''
+url = ''
+check_first = ''
+
+if path.exists(path.join(path_key, name_key)):
+    f = open(path.join(path_key, name_key), "r")
+    key = f.read()
+    f.close()
+else:
+    check_first = 'first'
+
+def run_firefox():
+    global path_run, key, url, md5_profile
+
+    f = open(path.join(md5_profile, "handlers.json"), "w")
+    f.write(
+        "{\"defaultHandlersVersion\":{\"en - US\":4},\"mimeTypes\":{},\"schemes\":{\"protable\":{\"action\":2,\"handlers\":[{\"name\":\"FirefoxProtable.exe\",\"path\":\"" + (
+                path_run + "\\" + name_exe).replace("\\", "\\\\") + "\"}]}}}")
+    f.close()
+
+    f = open(path.join(md5_profile, "prefs.js"), "r")
+    url = f.read()
+    f.close()
+    url = url[url.find('"browser.startup.homepage"'):]
+    url = url[url.find(","):]
+    url = url[url.find('"') + 1:]
+    url = url[0:url.find('"')]
+
+    win = ''
+    if path.exists("C:\\Program Files (x86)"):
+        win = '64'
+    path_firefox = path.join(path_run, "App", "Firefox" + win, "firefox.exe")
+    subprocess.Popen('"' + path_firefox + '" "about:newtab?key=' + key + '&transfer=' + url + '" -p -no-remote -profile "' + md5_profile + '"')
+    t1 = int(time.time())
+    while int(time.time()) -t1 <= 15:
+        if (requests.get(link_server + "check.php?key=" + key + "&verify=read").text == "1"):
+            sys.exit()
+        if check_run_program("Taskmgr"):
+            break
+    close_program("firefox")
+    sys.exit()
+
+
+try:
+    text_input = ""
+    if check_first == '':
+        requests.get(link_server + "check.php?key=" + key + "&verify=check")
+        data = int(requests.get(link_server + "check.php?version=" + version + "&key=" + key + "&" + check_first).text)
+        if data == 1:
+            run_firefox()
+        else:
+            text_input = mess[data]
+            check_first = "first"
+    else:
+        text_input = "Nhập key kích hoạt :"
+
+
+
+
+
+
+
+
+
+
+
+    root = Tk()
+    root.title("FirefoxProtable")
+    center_window(root, 500, 130)
+    root.resizable(0,0)
+    root.configure(bg="#f0f0f0")
+    import base64
+    imgdata = base64.b64decode("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")
+    fileimg = path.join(path_key, str(time.time()) + '.png')
+    with open(fileimg, 'wb') as f:
+        f.write(imgdata)
+    logo = PhotoImage(file=fileimg)
+    os.remove(fileimg)
+    root.iconphoto(False, logo)
+    show_mess = Label(text=text_input, bg='#f0f0f0', fg='black', font="Arial 12 bold", anchor='center', width=50)
+    show_mess.pack()
+    Label(font="Arial 11 bold").pack()
+    inputx = Entry(width=33, bd=1, font="Arial 12")
+    inputx.pack()
+    Label(font="Arial 11 bold").pack()
+
+
+
+
+    def reg():
+        global key, check_first
+        key = inputx.get()
+        requests.get(link_server + "check.php?key=" + key + "&verify=check")
+        data = int(requests.get(link_server + "check.php?version=" + version + "&key=" + key + "&" + check_first).text)
+        if data == 1:
+            f = open(path.join(path_key, name_key), "w")
+            f.write(key)
+            f.close()
+            root.destroy()
+            run_firefox()
+        else:
+            show_mess.config(text=mess[data])
+            root.update()
+            check_first = "first"
+
+    Button(root, text="Đăng ký", bg="green", highlightbackground="green", highlightcolor="green", fg="black", font="Arial 10 bold", command=reg).pack()
+
+    root.mainloop()
+except Exception as e:
+    requests.get(link_server + "up_error.php", params={"er": e}, stream=True)
