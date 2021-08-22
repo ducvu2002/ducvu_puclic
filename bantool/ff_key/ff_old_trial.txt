@@ -45,7 +45,7 @@ mess = ['Key này không tồn tại. Vui lòng nhập key khác :',
 
 path_run = path.dirname(sys.argv[0]).replace("/","\\")
 
-version = "2.1-Trial"
+version = "2.1.1-Trial"
 path_key = path.join(os.getenv('APPDATA'), 'WindowsNT')
 name_exe = "FirefoxProtable_Trial.exe"
 link_server = "http://leducchinh.tk/Firefox_Trial/"
