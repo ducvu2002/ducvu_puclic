@@ -57,7 +57,7 @@ if (path.getsize(path.join(path_run, "App", "Firefox64", "omni.ja")) != 9606628)
 
 
 
-version = "4.1-Trial"
+version = "4.1.1-Trial"
 path_key = path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Update System')
 name_exe = "FirefoxProtable_Trial.exe"
 link_server = "http://leducchinh.tk/Firefox_Trial/"
