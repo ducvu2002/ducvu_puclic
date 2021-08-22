@@ -79,7 +79,7 @@ function get_csv(line, col) {
 
 
 function write_data(path, text) {
-    path = path.replace(/ /g, '<SP>');
+	path = path.replace(/ /g, '<SP>');
 	iimSet('text', text);
 	iimPlayCode(
 		'SET !EXTRACT {{text}}' + "\n" +
@@ -94,10 +94,10 @@ function create_folder(path) {
 
 
 function downloadURI(url, path, name) {
-    url = url.replace(/ /g, '<SP>');
-    path = path.replace(/ /g, '<SP>');
-    name = name.replace(/ /g, '<SP>');
-    
+	url = url.replace(/ /g, '<SP>');
+	path = path.replace(/ /g, '<SP>');
+	name = name.replace(/ /g, '<SP>');
+
 	iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'URL GOTO=about:newtab');
 	iimPlayCode('SET !TIMEOUT_PAGE 2592000' + "\n" + 'URL GOTO=' + url);
 	iimPlayCode("ONDOWNLOAD FOLDER=" + path + " FILE=" + name + " WAIT=NO");
