@@ -83,6 +83,8 @@ function create_folder(path) {
 
 
 function write_data(path, name_file, text) {
+	path = path.replace(/ /g, '<SP>');
+	name_file = name_file.replace(/ /g, '<SP>');
 	iimSet('text', text);
 	iimPlayCode(
 		'SET !EXTRACT {{text}}' + "\n" +
