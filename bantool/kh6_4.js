@@ -7,9 +7,9 @@ var x2 = -1;
 var y2 = -1;
 
 function isNumeric(str) {
-	if (typeof str != "string") return false // we only process strings!  
-	return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-	 !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+  if (typeof str != "string") return false // we only process strings!  
+  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+         !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
 }
 
 while (true) {
@@ -79,7 +79,7 @@ function get_csv(line, col) {
 
 
 function write_data(path, text) {
-	path = path.replace(/ /g, '<SP>');
+    path = path.replace(/ /g, '<SP>');
 	iimSet('text', text);
 	iimPlayCode(
 		'SET !EXTRACT {{text}}' + "\n" +
@@ -94,9 +94,10 @@ function create_folder(path) {
 
 
 function downloadURI(url, path, name) {
-	path = path.replace(/ /g, '<SP>');
-	name = name.replace(/ /g, '<SP>');
-	
+    url = url.replace(/ /g, '<SP>');
+    path = path.replace(/ /g, '<SP>');
+    name = name.replace(/ /g, '<SP>');
+    
 	iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'URL GOTO=about:newtab');
 	iimPlayCode('SET !TIMEOUT_PAGE 2592000' + "\n" + 'URL GOTO=' + url);
 	iimPlayCode("ONDOWNLOAD FOLDER=" + path + " FILE=" + name + " WAIT=NO");
