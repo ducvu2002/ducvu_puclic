@@ -141,11 +141,12 @@ function get_muc(path) {
 	}
 }
 
-function get_chuong(path, dom_m, loop = 1) {
+first = true;
+function get_chuong(path, dom_m) {
 	let space = new RegExp(decodeURIComponent('%C2%A0'), "g");
 	let chuong;
-	if (loop == 1) { chuong = chuong1; }
-	else { chuong = 0; }
+	if (first) { chuong = chuong1; } else { chuong = 0; }
+	first = false;
 	try {
 		let id_lession = window.document.querySelector(dom_m + " .tree-lessons").id;
 		while(true) {
@@ -174,7 +175,7 @@ function get_chuong(path, dom_m, loop = 1) {
 
 
 			if (window.document.querySelector(dom + " .tree-lessons>li") != null) {
-				get_chuong(pathx, dom, 2);
+				get_chuong(pathx, dom);
 			} else get_bai(pathx, dom);
 		}
 	} catch(e) { return }
