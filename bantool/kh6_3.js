@@ -83,8 +83,8 @@ function create_folder(path) {
 
 
 function write_data(path, name_file, text) {
-	path = path.replace(/ /g, '<SP>');
-	name_file = name_file.replace(/ /g, '<SP>');
+    path = path.replace(/ /g, '<SP>');
+    name_file = name_file.replace(/ /g, '<SP>');
 	iimSet('text', text);
 	iimPlayCode(
 		'SET !EXTRACT {{text}}' + "\n" +
@@ -219,17 +219,15 @@ while (window.document.querySelector(dom) != null) {
 				domx = ".ant-list-bordered .ant-list-item:nth-child(1)>a>button:nth-child(" + (1) + ")";
 				window.document.querySelector(domx).click();
 				iimPlayCode('WAIT SECONDS=1');
-				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + ten_bai.replace(/ /g, '<SP>')+".pdf" + " WAIT=NO");
-				iimPlayCode('WAIT SECONDS=2');
-				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + ten_bai.replace(/ /g, '<SP>')+".pdf" + " WAIT=NO");
+				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + ten_bai.replace(/ /g, '<SP>')+".pdf" + " WAIT=YES");
+				iimPlayCode('WAIT SECONDS=1');
 				
 				
 				domx = ".ant-list-bordered .ant-list-item:nth-child(1)>a>button:nth-child(" + (1) + ")";
 				window.document.querySelector(domx).click();
 				iimPlayCode('WAIT SECONDS=1');
-				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + (ten_bai + '[Lời giải + Đáp án]').replace(/ /g, '<SP>')+".pdf" + " WAIT=NO");
-				iimPlayCode('WAIT SECONDS=2');
-				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + (ten_bai + '[Lời giải + Đáp án]').replace(/ /g, '<SP>')+".pdf" + " WAIT=NO");
+				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + (ten_bai + '[Lời giải + Đáp án]').replace(/ /g, '<SP>')+".pdf" + " WAIT=YES");
+				iimPlayCode('WAIT SECONDS=1');
 			} catch(e) {}
 
 		} else {
