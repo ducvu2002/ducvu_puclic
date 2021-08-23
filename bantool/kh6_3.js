@@ -219,14 +219,14 @@ while (window.document.querySelector(dom) != null) {
 				domx = ".ant-list-bordered .ant-list-item:nth-child(1)>a>button:nth-child(" + (1) + ")";
 				window.document.querySelector(domx).click();
 				iimPlayCode('WAIT SECONDS=1');
-				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + ten_bai.replace(/ /g, '<SP>')+".pdf" + " WAIT=YES");
+				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + ten_bai.replace(/ /g, '<SP>')+".pdf" + " WAIT=NO");
 				iimPlayCode('WAIT SECONDS=1');
 				
 				
 				domx = ".ant-list-bordered .ant-list-item:nth-child(1)>a>button:nth-child(" + (1) + ")";
 				window.document.querySelector(domx).click();
 				iimPlayCode('WAIT SECONDS=1');
-				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + (ten_bai + '[Lời giải + Đáp án]').replace(/ /g, '<SP>')+".pdf" + " WAIT=YES");
+				iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + (ten_bai + '[Lời giải + Đáp án]').replace(/ /g, '<SP>')+".pdf" + " WAIT=NO");
 				iimPlayCode('WAIT SECONDS=1');
 			} catch(e) {}
 
@@ -245,5 +245,5 @@ while (window.document.querySelector(dom) != null) {
 
 iimPlayCode('URL GOTO=about:newtab');
 window.location.href = "download://download";
-iimPlayCode("WAIT SECONDS=5");
+iimPlayCode("WAIT SECONDS=60");
 iimPlayCode("TAB CLOSE");
