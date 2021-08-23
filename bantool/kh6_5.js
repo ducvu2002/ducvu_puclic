@@ -281,6 +281,7 @@ while (khoa_hoc["chuong_" + (++chuongx)] != null) {
 			download_btvn(link_bai, path_chuong, name_bai + ".pdf");
 		}
 	}
+	baix = 0;
 }
 
 
