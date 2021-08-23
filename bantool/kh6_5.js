@@ -1,5 +1,10 @@
-var x;
-x2 = -1;
+iimPlayCode('URL GOTO=about:newtab');
+var chuong, bai1;
+chuong2 = 9999999999999;
+bai2 = 9999999999999;
+
+
+
 
 function isNumeric(str) {
   if (typeof str != "string") return false // we only process strings!  
@@ -25,30 +30,54 @@ while (true) {
 
 switch(tinh_nang) {
 	case '1':
-		x = 0;
+		chuong = 0;
+		bai1 = 0;
 		break;
 	case '2':
         while(true) {
-            bai_start = prompt('Nhập bài bắt đầu' + "\n" + 'Ví dụ nhập bài 2 là' + "\n" + '2');
-            if (!isNumeric(bai_start)) {
+            chuong_bai_start = prompt('Nhập chương và bài bắt đầu' + "\n" + 'Ví dụ nhập chương 2 bài 2 là' + "\n" + '2|2');
+            chuong_bai_start = chuong_bai_start.split("|");
+            if (chuong_bai_start.length != 2) {
                 alert('Nhập không đúng vui lòng nhập lại');
                 continue;
             }
-            x = Number(bai_start)-1;
+            if (!isNumeric(chuong_bai_start[0]) || !isNumeric(chuong_bai_start[1])) {
+                alert('Nhập không đúng vui lòng nhập lại');
+                continue;
+            }
+            chuong = Number(chuong_bai_start[0])-1;
+            bai1 = Number(chuong_bai_start[1])-1;
             break;
         }
         
         while(true) {
-            bai_end = prompt('Nhập bài kết thúc' + "\n" + 'Ví dụ nhập bài 4 là' + "\n" + '4');
-            if (!isNumeric(bai_end)) {
+            chuong_bai_end = prompt('Nhập chương và bài kết thúc' + "\n" + 'Ví dụ nhập chương 4 bài 4 là' + "\n" + '4|4');
+            chuong_bai_end = chuong_bai_end.split("|");
+            if (chuong_bai_end.length != 2) {
                 alert('Nhập không đúng vui lòng nhập lại');
                 continue;
             }
-            x2 = Number(bai_end);
+            if (!isNumeric(chuong_bai_end[0]) || !isNumeric(chuong_bai_end[1])) {
+                alert('Nhập không đúng vui lòng nhập lại');
+                continue;
+            }
+            chuong2 = Number(chuong_bai_end[0]);
+            bai2 = Number(chuong_bai_end[1]);
             break;
         }
 		break;
 }
+
+
+
+first = true;
+stop = false;
+
+chuongx = chuong;
+baix = bai1;
+
+
+
 
 
 function get_csv(line, col) {
@@ -67,8 +96,8 @@ function create_folder(path) {
 
 
 function write_data(path, name_file, text) {
-    path = path.replace(/ /g, '<SP>');
-    name_file = name_file.replace(/ /g, '<SP>');
+	path = path.replace(/ /g, '<SP>');
+	name_file = name_file.replace(/ /g, '<SP>');
     
 	iimSet('text', text);
 	iimPlayCode(
@@ -89,33 +118,68 @@ write_data(path_list_download, "list_download.txt", "Download video tuyensinh247
 write_data(path_list_download, "list_download.txt", so_luong);
 
 
-iimPlayCode('URL GOTO=about:newtab');
+
 path_save = get_csv(1,1);
 url_khoahoc = get_csv(2,1);
 
 
+iimPlayCode('URL GOTO=about:newtab');
+window.location.href = url_khoahoc;
+while (window.document.querySelector(".td-navbar-signup .avt-signup") == null) iimPlayCode("WAIT SECONDS=1");
+if (window.location.href != url_khoahoc) window.location.href = url_khoahoc;
+iimPlayCode("WAIT SECONDS=1");
 
 
+var khoa_hoc = {}
+khoa_hoc["name"] = window.document.querySelector(".courseTitle").textContent.trim().replace(/[\/\\:*?"<>|]/g,'_');
 
-function get_bai(url) {
-	iimPlayCode('URL GOTO=about:newtab');
-	window.location.href = 'https://tuyensinh247.com/';	
-	while (window.document.querySelector(".td-navbar-signup .avt-signup") == null) iimPlayCode("WAIT SECONDS=1");
-	iimPlayCode('URL GOTO=' + url);
-	while (window.document.querySelector(".listCourse") == null) iimPlayCode("WAIT SECONDS=1");
-	i = 0;
-	dom = ".listCourse>div:nth-child(" + (++i) + ")>div>a";
-	list = [];
-	while (true) {
-		try {
-			name_bai_hoc = window.document.querySelector(dom + ">span").textContent.trim().replace(/[\/\\:*?"<>|]/g,'_');
-			link_bai_hoc = window.document.querySelector(dom).href;
-			list.push( [name_bai_hoc, link_bai_hoc] );
-			dom = ".listCourse>div:nth-child(" + (++i) + ")>div>a";
-		} catch (e) { break; }
+
+function get_chuong(path) {
+	while (window.document.querySelector("#tabDetail .videoJustWatched") != null) window.document.querySelector("#tabDetail .videoJustWatched").remove();
+	while (window.document.querySelector("#tabDetail .moduleFreeVideo") != null) window.document.querySelector("#tabDetail .moduleFreeVideo").remove();
+	try {
+		while (true) {
+			if (chuong > chuong2) { return; }
+			let dom = "#tabDetail .topicDetail:nth-child(" + (++chuong) + ")";
+			if (window.document.querySelector(dom) == null) break;
+			window.document.querySelector(dom + " .showDetail").click();
+			iimPlayCode('WAIT SECONDS=1');
+			khoa_hoc["chuong_" + chuong] = {};
+			khoa_hoc["chuong_" + chuong]["name"] = window.document.querySelector(dom + " .topicTitle").textContent.trim().replace(/[\/\\:*?"<>|]/g,'_');
+			create_folder(path + khoa_hoc["chuong_" + chuong]["name"]);
+			get_bai(khoa_hoc["chuong_" + chuong], window.document.querySelector(dom + " .topicContent").id);
+			if (stop) return;
+		}
+		
 	}
-	return list;
+	catch (e) { return; }
 }
+
+
+function get_bai(c, id_c) {
+	while (window.document.querySelector("#" + id_c + " .viewMore>a") != null) {
+		window.document.querySelector("#" + id_c + " .viewMore>a").click();
+		iimPlayCode('WAIT SECONDS=1');
+	}
+	let bai;
+	if (first) { bai = bai1; } else { bai = 0; }
+	first = false;
+	try {
+		while (true) {
+			if (chuong == chuong2 && bai == bai2) { stop = true; return }
+			let dom = "#" + id_c + " .lessonWrapper:nth-child(" + (++bai) + ")";
+			if (window.document.querySelector(dom) == null) break;
+			c["bai_" + bai] = {};
+			let dom_b = window.document.querySelector(dom + " .lessonTitle");
+			c["bai_" + bai]["name"] = dom_b.textContent.trim().replace(/[\/\\:*?"<>|]/g,'_');
+			c["bai_" + bai]["link"] = dom_b.href.trim();
+		}
+		
+	}
+	catch (e) { return; }
+}
+
+
 
 function get_link_video() {
 	while (window.document.getElementById('#####') != null) window.document.getElementById('#####').remove();
@@ -139,14 +203,26 @@ function get_link_video() {
 	return link;
 }
 
-list_bai = get_bai(url_khoahoc);
-while (x < list_bai.length) {
-	if (x == x2) break;
-	iimPlayCode("URL GOTO=" + list_bai[x][1]);
-	path_save_video = path_save + "\\" + list_bai[x][0] + "\\";
-	create_folder(path_save_video);
+
+function download_btvn(url, path, name) {
+	name = name.replace(/ /g, '<SP>');
+	iimPlayCode('URL GOTO=about:newtab');;
+	window.location.href = url;
+	while (true) {
+		iimPlayCode("ONDOWNLOAD FOLDER=" + path.replace(/ /g, '<SP>') + " FILE=" + name + " WAIT=NO");
+		try { window.document.querySelector(".download_exam").click(); break; }
+		catch (e) { iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'WAIT SECONDS=1'); }
+		iimPlayCode('WAIT SECONDS=1');
+	}
+}
+
+
+function download_video(url, path) {
+	iimPlayCode('URL GOTO=about:newtab');
+	iimPlayCode('URL GOTO=' + url);
+	create_folder(path);
 	while (window.document.querySelector(".btnShowVideoList") == null) iimPlayCode("WAIT SECONDS=1");
-	y = 0;
+	let y = 0;
 	while (true) {
 		try {
 			//show list video
@@ -163,9 +239,9 @@ while (x < list_bai.length) {
 			iimPlayCode("WAIT SECONDS=1");
 			link_video = get_link_video();
 			if (link_video == "NO_LINK") {
-				write_data(path_save, "error.txt", path_save_video + ten_video + " : " + link_video);
+				write_data(path_save, "error.txt", path + ten_video + " : " + link_video);
 			} else {
-				write_data(path_list_download, "list_download.txt", path_save_video + ten_video + "|" + link_video);
+				write_data(path_list_download, "list_download.txt", path + ten_video + "|" + link_video);
 			}
 		} catch(e) { break };
 	}
@@ -174,34 +250,33 @@ while (x < list_bai.length) {
 	dom_document = window.document.querySelector(".documentNavigation>a:nth-child(3)");
 	if (dom_document != null) {
 		if (dom_document.textContent.trim() == 'Tải về') {
-			iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=*" + " WAIT=NO");
+			iimPlayCode("ONDOWNLOAD FOLDER=" + path.replace(/ /g, '<SP>') + " FILE=Tài<SP>liệu.pdf" + " WAIT=NO");
 			dom_document.click();
 			iimPlayCode('WAIT SECONDS=1');
 		}
 	}
-	
-	
-	//download pdf btvn
-	list_btvn = [];
-	i = 0;
-	while (true) {
-		try { list_btvn.push(window.document.querySelector(".exerciseContent>p>a:nth-child(" + (++i) +")").href); }
-		catch(e) {break;}
-	}
-	list_btvn.forEach(function(link){
-		iimPlayCode('URL GOTO=about:newtab');
-		window.location.href = link;
-		while (true) {
-			iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=*" + " WAIT=NO");
-			try { window.document.querySelector(".download_exam").click(); break; }
-			catch (e) { iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'WAIT SECONDS=1'); }
-			iimPlayCode('WAIT SECONDS=1');
-		}
-	});
-	
-	
-	x++;
+
 }
+
+
+path_khoa_hoc = path_save + "\\" + khoa_hoc["name"] + "\\";
+get_chuong(path_khoa_hoc);
+
+
+while (khoa_hoc["chuong_" + (++chuongx)] != null) {
+	name_chuong = khoa_hoc["chuong_" + (chuongx)]["name"];
+	path_chuong = path_khoa_hoc + name_chuong + "\\";
+	while (khoa_hoc["chuong_" + (chuongx)]["bai_" + (++baix)] != null) {
+		name_bai = khoa_hoc["chuong_" + (chuongx)]["bai_" + (baix)]["name"];
+		link_bai = khoa_hoc["chuong_" + (chuongx)]["bai_" + (baix)]["link"];
+		if (link_bai.startsWith("https://tuyensinh247.com/bai-giang")) {
+			download_video(link_bai, path_chuong + name_bai + "\\");
+		} else {
+			download_btvn(link_bai, path_chuong, name_bai + ".pdf");
+		}
+	}
+}
+
 
 
 iimPlayCode('URL GOTO=about:newtab');
