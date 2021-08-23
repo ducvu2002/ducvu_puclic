@@ -173,11 +173,12 @@ while (x < list_bai.length) {
 	//download pdf
 	dom_document = window.document.querySelector(".documentNavigation>a:nth-child(3)");
 	if (dom_document != null) {
-		if (dom_document.textContent.trim() == 'Tải về')
+		if (dom_document.textContent.trim() == 'Tải về') {
 			dom_document.click();
 			iimPlayCode('WAIT SECONDS=1');
 			iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=*" + " WAIT=YES");
 			iimPlayCode('WAIT SECONDS=1');
+		}
 	}
 	
 	
