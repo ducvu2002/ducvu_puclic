@@ -142,8 +142,11 @@ function get_chuong(path) {
 			if (chuong > chuong2) { return; }
 			let dom = "#tabDetail .topicDetail:nth-child(" + (++chuong) + ")";
 			if (window.document.querySelector(dom) == null) break;
-			window.document.querySelector(dom + " .showDetail").click();
-			iimPlayCode('WAIT SECONDS=1');
+			domshow = window.document.querySelector(dom + " .showDetail");
+			while (domshow.className.trim()  == "showDetail") {
+				domshow.click();
+				iimPlayCode('WAIT SECONDS=1');
+			}
 			khoa_hoc["chuong_" + chuong] = {};
 			khoa_hoc["chuong_" + chuong]["name"] = window.document.querySelector(dom + " .topicTitle").textContent.trim().replace(/[\/\\:*?"<>|]/g,'_');
 			create_folder(path + khoa_hoc["chuong_" + chuong]["name"]);
@@ -212,7 +215,10 @@ function download_btvn(url, path, name) {
 		iimPlayCode("ONDOWNLOAD FOLDER=" + path.replace(/ /g, '<SP>') + " FILE=" + name + " WAIT=NO");
 		try { window.document.querySelector(".download_exam").click(); break; }
 		catch (e) { iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'WAIT SECONDS=1'); }
-		iimPlayCode('WAIT SECONDS=1');
+		if (window.document.readyState == 'complete') {
+			write_data(path_save, "error.txt", path + name + " : Lỗi ko có PDF");
+			break;
+		}
 	}
 }
 
