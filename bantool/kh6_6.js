@@ -142,7 +142,7 @@ function get_muc(path) {
 }
 
 first = true;
-function get_chuong(path, dom_m) {
+function get_chuong(path, dom_m, loop = 1) {
 	let space = new RegExp(decodeURIComponent('%C2%A0'), "g");
 	let chuong;
 	if (first) { chuong = chuong1; } else { chuong = 0; }
@@ -175,7 +175,7 @@ function get_chuong(path, dom_m) {
 
 
 			if (window.document.querySelector(dom + " .tree-lessons>li") != null) {
-				get_chuong(pathx, dom);
+				get_chuong(pathx, dom, 2);
 			} else get_bai(pathx, dom);
 		}
 	} catch(e) { return }
