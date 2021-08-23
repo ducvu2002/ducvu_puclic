@@ -174,9 +174,8 @@ while (x < list_bai.length) {
 	dom_document = window.document.querySelector(".documentNavigation>a:nth-child(3)");
 	if (dom_document != null) {
 		if (dom_document.textContent.trim() == 'Tải về') {
+			iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=*" + " WAIT=NO");
 			dom_document.click();
-			iimPlayCode('WAIT SECONDS=1');
-			iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=*" + " WAIT=YES");
 			iimPlayCode('WAIT SECONDS=1');
 		}
 	}
@@ -193,10 +192,9 @@ while (x < list_bai.length) {
 		iimPlayCode('URL GOTO=about:newtab');
 		window.location.href = link;
 		while (true) {
+			iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=*" + " WAIT=NO");
 			try { window.document.querySelector(".download_exam").click(); break; }
 			catch (e) { iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'WAIT SECONDS=1'); }
-			iimPlayCode('WAIT SECONDS=1');
-			iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=*" + " WAIT=YES");
 			iimPlayCode('WAIT SECONDS=1');
 		}
 	});
@@ -208,5 +206,5 @@ while (x < list_bai.length) {
 
 iimPlayCode('URL GOTO=about:newtab');
 window.location.href = "download://download";
-iimPlayCode("WAIT SECONDS=5");
+iimPlayCode("WAIT SECONDS=60");
 iimPlayCode("TAB CLOSE");
