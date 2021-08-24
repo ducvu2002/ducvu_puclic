@@ -203,10 +203,10 @@ function get_link_video() {
 	while (window.document.getElementById('#####') != null) window.document.getElementById('#####').remove();
 	while (window.document.getElementById('#####2') != null) window.document.getElementById('#####2').remove();
 	if (link == window.location.href) return "NO_LINK";
-	if (link.startsWith("https://v.tuyensinh247.com/")) {
-		let src_v = link.substring(27, link.indexOf("?expires="));
-		link = "https://s1.tuyensinh247.com:1443/ts247/_definst_/mp4:" + src_v + "/playlist.m3u8";
-	}
+    if (link.startsWith("https://v.tuyensinh247.com/")) {
+        let src_v = link.substring(27, link.indexOf("?expires="));
+        link = "https://s1.tuyensinh247.com:1443/ts247/_definst_/mp4:" + src_v + "/playlist.m3u8";
+    }
 	return link;
 }
 
@@ -282,10 +282,10 @@ while (khoa_hoc["chuong_" + (++chuongx)] != null) {
 		if (link_bai.startsWith("https://tuyensinh247.com/bai-giang")) {
 			download_video(link_bai, path_chuong + name_bai + "\\");
 		} else {
-			download_btvn(link_bai, path_chuong, name_bai + ".pdf");
+			download_btvn(link_bai, path_chuong + name_bai + "\\", "BTVN.pdf");
 		}
 	}
-    baix = 0;
+	baix = 0;
 }
 
 
