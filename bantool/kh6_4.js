@@ -14,7 +14,6 @@ function isNumeric(str) {
 
 while (true) {
 	tinh_nang = prompt('Menu : ' + "\n" + '1. Download Hết' + "\n" + '2. Download tùy chọn');
-	if (tinh_nang == null) break;
 	if (tinh_nang == '1' || tinh_nang == '2') break;
 	alert('Nhập không đúng vui lòng nhập lại');
 }
