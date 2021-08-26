@@ -217,7 +217,7 @@ function get_video_pdf(dom_html, path) {
 		}
 		dom_video = dom_html.querySelector("video>source");
 		if (dom_video != null) {
-			list_download.push( ["https://hoc24h.vn" + dom_video.getAttribute("data-src"), path, name_video + ".mp4"] );
+			list_download.push( ["https://hoc24h.vn" + dom_video.getAttribute("data-src"), path, (i+1) + "_" + name_video + ".mp4"] );
 		}
 		window.document.getElementById("running").innerHTML = "Đang chạy " + adds_str();
 	}
