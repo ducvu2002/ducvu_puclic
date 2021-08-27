@@ -76,6 +76,17 @@ function get_csv(line, col) {
 
 
 
+function write_data(path, name_file, text) {
+	path = path.replace(/ /g, '<SP>');
+	name_file = name_file.replace(/ /g, '<SP>');
+	iimSet('text', text);
+	iimPlayCode(
+		'SET !EXTRACT {{text}}' + "\n" +
+		'SAVEAS TYPE=EXTRACT FOLDER=' + path + ' FILE=' + name_file
+	);
+}
+
+
 
 function create_folder(path) {
 	path = path.replace(/ /g, '<SP>');
@@ -171,6 +182,8 @@ function get_result_exam(id, path) {
 	de_pdf = window.document.querySelector(".list-information.list-unstyled a");
 	if (de_pdf != null) {
 		list_download.push( [de_pdf.href, path, "Đề thi.pdf"] );
+	} else {
+	    write_data(path_save, "error.txt", path + "Đề thi.pdf");
 	}
 	loi_giai = window.document.getElementsByClassName("btn btn-info btn-show-comment");
 	for (let i = 0; i < loi_giai.length; i++) { loi_giai[i].click(); }
@@ -205,6 +218,8 @@ function get_video_pdf(dom_html, path) {
 	let dom_pdf = dom_html.querySelector(".header.header-lesson .pull-right>a");
 	if (dom_pdf != null && dom_pdf.href != 'javascript:void(0);') {
 		list_download.push( [dom_pdf.href, path, "Tài liệu.pdf"] );
+	} else {
+	    write_data(path_save, "error.txt", path + "Tài liệu.pdf");
 	}
 	window.document.getElementById("running").innerHTML = "Đang chạy " + adds_str();
 	dom_videos = dom_html.querySelector(".content-lesson-left>ul").getElementsByTagName("li");
@@ -218,6 +233,8 @@ function get_video_pdf(dom_html, path) {
 		dom_video = dom_html.querySelector("video>source");
 		if (dom_video != null) {
 			list_download.push( ["https://hoc24h.vn" + dom_video.getAttribute("data-src"), path, (i+1) + "_" + name_video + ".mp4"] );
+		} else {
+		    write_data(path_save, "error.txt", path + (i+1) + "_" + name_video + ".mp4");
 		}
 		window.document.getElementById("running").innerHTML = "Đang chạy " + adds_str();
 	}
