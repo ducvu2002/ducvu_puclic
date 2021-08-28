@@ -269,18 +269,21 @@ stop = false;
 function get_chuong(dom_html, path) {
 	chuong = dom_html.getElementsByClassName("courseCurriculumItem");
 	while (x < chuong.length) {
-		try {
-			if (x > x2) { return; }
-			let name_chuong = chuong[x].querySelector(".courseCurriculumItemTitle").textContent.trim().replace(/[\/\\:*?"<>|]/g,'_');
-			let path_chuong = path + name_chuong + "\\";
-			window.document.getElementById("chuong").innerHTML = name_chuong;
-			window.document.getElementById("bai").innerHTML = "";
-			window.document.getElementById("video").innerHTML = "";
-			create_folder(path_chuong);
-			get_bai(chuong[x], path_chuong);
-			if (stop) { return; }
-			x++;
-		} catch(e) { break; }
+		if (x > x2) { return; }
+		if (chuong[x].querySelector(".collapse.show") == null) { break; }
+		let name_chuong = "";
+		let path_chuong = path;
+		if (chuong[x].querySelector(".courseCurriculumItemTitle") != null) {
+		    name_chuong = chuong[x].querySelector(".courseCurriculumItemTitle").textContent.trim().replace(/[\/\\:*?"<>|]/g,'_');
+		    path_chuong += name_chuong + "\\";
+		}
+		window.document.getElementById("chuong").innerHTML = name_chuong;
+		window.document.getElementById("bai").innerHTML = "";
+		window.document.getElementById("video").innerHTML = "";
+		create_folder(path_chuong);
+		get_bai(chuong[x], path_chuong);
+		if (stop) { return; }
+		x++;
 	};
 }
 
