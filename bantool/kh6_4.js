@@ -188,7 +188,7 @@ function get_bai(url) {
 	}
 	start_sub = length_like_start(ar_col(list, 0));
 	for (let i = 0; i < list.length; i++) {
-	    list[i][0] = list[i][0].substr(start_sub);
+	    list[i][0] = (i+1) + "_" + list[i][0].substr(start_sub);
 	}
 	return list;
 }
