@@ -191,7 +191,7 @@ function get_result_exam(id, path) {
 		window.document.querySelector("header").remove();
 		window.document.querySelector("footer").remove();
 		window.document.querySelector(".col-md-4").remove();
-		window.document.querySelector("#wrapper .ng-scope").remove();
+		window.document.querySelector("#wrapper>.main-content>.ng-scope").remove();
 	} catch (e) {}
 	
 	//save image
