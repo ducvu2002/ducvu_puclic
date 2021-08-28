@@ -145,6 +145,32 @@ function get_chuong(url) {
 }
 
 
+
+
+
+
+function length_like_start(ar) {
+	let x = 0;
+	if (ar.length <= 1) return 0;
+	while (true) {
+		try {
+			if (x >= ar[0].length) return x;
+			for (i = 1; i < ar.length; i++) {
+				if (ar[0][x] != ar[i][x]) return x; 
+			}
+			x++;
+		} catch(e) { return x; }
+	}
+}
+
+function ar_col(ar, n) {
+	let tm = [];
+	for (i = 0; i < ar.length; i++) {
+		tm.push(ar[i][n]);
+	}
+	return tm;
+}
+
 function get_bai(url) {
 	iimPlayCode('URL GOTO=about:newtab');
 	iimPlayCode('URL GOTO=' + url);
@@ -159,6 +185,10 @@ function get_bai(url) {
 			list.push( [name_bai_hoc, link_bai_hoc] );
 			dom = ".nap-list-lesson li:nth-child(" + (++i) + ")>a";
 		} catch (e) { break; }
+	}
+	start_sub = length_like_start(ar_col(list, 0));
+	for (let i = 0; i < list.length; i++) {
+	    list[i][0] = list[i][0].substr(start_sub);
 	}
 	return list;
 }
