@@ -95,9 +95,9 @@ function create_folder(path) {
 
 
 function downloadURI(url, path, name) {
-    url = url.replace(/ /g, '<SP>');
-    path = path.replace(/ /g, '<SP>');
-    name = name.replace(/ /g, '<SP>');
+	url = url.replace(/ /g, '<SP>');
+	path = path.replace(/ /g, '<SP>');
+	name = name.replace(/ /g, '<SP>');
 	iimPlayCode('SET !TIMEOUT_PAGE 1' + "\n" + 'URL GOTO=about:newtab');
 	iimPlayCode("ONDOWNLOAD FOLDER=" + path + " FILE=" + name + " WAIT=NO");
 	iimPlayCode('SET !TIMEOUT_PAGE 2592000' + "\n" + 'URL GOTO=' + url);
@@ -228,7 +228,7 @@ function get_video_pdf(dom_html, path) {
 		let name_video = dom_info_video.textContent.trim().replace(/[\/\\:*?"<>|]/g,'_');
 		window.document.getElementById("video").innerHTML = name_video;
 		if (!dom_info_video.href.endsWith("#")) {
-			dom_html = request_dom("https://hoc24h.vn" + dom_info_video.href);
+			dom_html = request_dom(dom_info_video.href);
 		}
 		dom_video = dom_html.querySelector("video>source");
 		if (dom_video != null) {
@@ -285,7 +285,7 @@ function get_bai(dom_html, path) {
 	while (y < bai.length) {
 		if (x == x2 && y == y2) { stop = true; return; }
 		dom_info_bai = bai[y].querySelector(".learn-lesson-wr");
-		let link_bai = "https://hoc24h.vn" + dom_info_bai.href;
+		let link_bai = dom_info_bai.href;
 		let name_bai = dom_info_bai.title.trim().replace(/[\/\\:*?"<>|]/g,'_');
 		window.document.getElementById("bai").innerHTML = name_bai;
 		window.document.getElementById("video").innerHTML = "";
