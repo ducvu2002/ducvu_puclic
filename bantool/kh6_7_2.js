@@ -270,7 +270,7 @@ function get_chuong(dom_html, path) {
 	chuong = dom_html.getElementsByClassName("courseCurriculumItem");
 	while (x < chuong.length) {
 		if (x > x2) { return; }
-		if (chuong[x].querySelector(".collapse.show") == null) { break; }
+		if (chuong[x].querySelector(".collapse") == null) { break; }
 		let name_chuong = "";
 		let path_chuong = path;
 		if (chuong[x].querySelector(".courseCurriculumItemTitle") != null) {
@@ -288,7 +288,7 @@ function get_chuong(dom_html, path) {
 }
 
 function get_bai(dom_html, path) {
-	bai = dom_html.querySelectorAll(".collapse.show>a");
+	bai = dom_html.querySelectorAll(".collapse>a");
 	let y;
 	if (first) { y = y1; } else { y = 0; }
 	first = false;
