@@ -218,9 +218,6 @@ function get_video_pdf(dom_html, path) {
                 while (window.document.readyState != 'complete') {
                     iimPlayCode('WAIT SECONDS=1');
                 }
-                while (window.document.querySelector(".answer") == null) {
-                    iimPlayCode('WAIT SECONDS=1');
-                }
 
 
                 try { window.document.getElementById("menutop-sticky-wrapper").remove(); } catch(e) {}
@@ -289,6 +286,7 @@ function get_video_pdf(dom_html, path) {
 
 
                 iimPlayCode(
+                    'WAIT SECONDS=1' + "\n" +
                     'SAVEAS TYPE=PNG FOLDER=' + pathx.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải.png' + "\n" +
                     'TAB CLOSE' + "\n" +
                     'WAIT SECONDS=1'
