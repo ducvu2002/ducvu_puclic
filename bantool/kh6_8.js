@@ -162,10 +162,10 @@ function get_bai(dom_html, path) {
             stop = true;
             return;
         }
+        let name_bai = bai[y].querySelector("h4").textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
+        let pathx = path + name_bai + "\\";
+        create_folder(pathx);
         if (bai[y].getAttribute("data-toggle") != null) {
-            let name_bai = bai[y].querySelector("h4").textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
-            let pathx = path + name_bai + "\\";
-            create_folder(pathx);
             let dom_bai = dom_html.querySelector("#sub-menu-" + bai[y].getAttribute("data-id"));
             if (dom_bai != null) {
                 while (dom_bai.getAttribute("aria-expanded") != "true") {
@@ -178,7 +178,7 @@ function get_bai(dom_html, path) {
                 }
             }
         } else {
-            get_video_pdf(bai[y], path);
+            get_video_pdf(bai[y], pathx);
         }
         y++;
     }
@@ -199,14 +199,12 @@ function get_video_pdf(dom_html, path) {
             write_data(path_save, "error.txt", path + name_obj + ".mp4");
         }
     } else {
-        let pathx = path + name_obj + "\\";
-        create_folder(pathx);
         while (true) {
             let dom_thi = request_dom(dom_html.href).querySelector("#sidebarleft .btn.btn-danger");
             if (dom_thi.textContent.trim() == "Làm đề thi") {
                 request_dom(dom_thi.getAttribute("data-href"));
             } else if (dom_thi.textContent.trim() == "Nạp tiền vào tài khoản") {
-                write_data(path_save, "error.txt", pathx + " : hết lượt xem");
+                write_data(path_save, "error.txt", path + " : hết lượt xem");
                 break;
             } else {
                 iimPlayCode(
@@ -229,9 +227,9 @@ function get_video_pdf(dom_html, path) {
 
                 let dom_pdf = window.document.querySelector(".btn.btn-link.btn-lg");
                 if (dom_pdf != null) {
-                    list_download.push([dom_pdf.href, pathx, "Đề thi.pdf"]);
+                    list_download.push([dom_pdf.href, path, "Đề thi.pdf"]);
                 } else {
-                    write_data(path_save, "error.txt", pathx + "Đề thi.pdf");
+                    write_data(path_save, "error.txt", path + "Đề thi.pdf");
                 }
                 
                 if (window.document.querySelector(".answer") == null) {
@@ -239,8 +237,8 @@ function get_video_pdf(dom_html, path) {
                         'TAB CLOSE' + "\n" +
                         'WAIT SECONDS=1'
                     );
-                    write_data(pathx, "không có đáp án.txt", "");
-                    write_data(path_save, "error.txt", pathx + " : Không có đáp án");
+                    write_data(path, "không có đáp án.txt", "");
+                    write_data(path_save, "error.txt", path + " : Không có đáp án");
                     break;
                 }
                 
@@ -300,7 +298,7 @@ function get_video_pdf(dom_html, path) {
 
                 iimPlayCode(
                     'WAIT SECONDS=1' + "\n" +
-                    'SAVEAS TYPE=PNG FOLDER=' + pathx.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải.png' + "\n" +
+                    'SAVEAS TYPE=PNG FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải.png' + "\n" +
                     'TAB CLOSE' + "\n" +
                     'WAIT SECONDS=1'
                 );
