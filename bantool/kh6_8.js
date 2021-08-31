@@ -237,7 +237,7 @@ function get_video_pdf(dom_html, path) {
                         'TAB CLOSE' + "\n" +
                         'WAIT SECONDS=1'
                     );
-                    write_data(path, "không có đáp án.txt", "");
+                    write_data(path, "không có hướng dẫn giải.txt", "");
                     write_data(path_save, "error.txt", path + " : Không có đáp án");
                     break;
                 }
