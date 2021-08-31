@@ -211,20 +211,23 @@ function get_video_pdf(dom_html, path) {
             } else {
                 iimPlayCode(
                     'TAB OPEN' + "\n" +
-                    'TAB T=2'
+                    'TAB T=2' + "\n" +
+                    'SET !TIMEOUT_PAGE 3600' + "\n" +
+                    'URL GOTO=' + dom_thi.href
                 );
-                window.location.href = dom_thi.href;
-                iimPlayCode('WAIT SECONDS=1');
                 while (window.document.readyState != 'complete') {
+                    iimPlayCode('WAIT SECONDS=1');
+                }
+                while (window.document.querySelector(".answer") == null) {
                     iimPlayCode('WAIT SECONDS=1');
                 }
 
 
-                window.document.getElementById("menutop-sticky-wrapper").remove();
-                window.document.querySelector(".breadcrumbs").remove();
-                window.document.querySelector(".footer-default").remove();
+                try { window.document.getElementById("menutop-sticky-wrapper").remove(); } catch(e) {}
+                try { window.document.querySelector(".breadcrumbs").remove(); } catch(e) {}
+                try { window.document.querySelector(".footer-default").remove(); } catch(e) {}
                 for (let i = 0; i < 2; i++) {
-                    window.document.querySelector(".container-fluid>div").remove();
+                    try { window.document.querySelector(".container-fluid>div").remove(); } catch(e) {}
                 }
 
                 let dom_pdf = window.document.querySelector(".btn.btn-link.btn-lg");
@@ -234,9 +237,9 @@ function get_video_pdf(dom_html, path) {
                     write_data(path_save, "error.txt", pathx + "Đề thi.pdf");
                 }
 
-                window.document.querySelector(".container-fluid .row .row .col-md-12").remove();
-                window.document.querySelector(".container-fluid .col-md-4.col-sm-12.col-xs-12").remove();
-                window.document.querySelector(".container-fluid .text-right.margin-bottom-15").remove();
+                try { window.document.querySelector(".container-fluid .row .row .col-md-12").remove(); } catch(e) {}
+                try { window.document.querySelector(".container-fluid .col-md-4.col-sm-12.col-xs-12").remove(); } catch(e) {}
+                try { window.document.querySelector(".container-fluid .text-right.margin-bottom-15").remove(); } catch(e) {}
                 while (true) {
                     let dom_cau = window.document.querySelector(".answer.lock");
                     if (dom_cau == null) {
@@ -279,10 +282,10 @@ function get_video_pdf(dom_html, path) {
                     }
                     dom.remove();
                 }
-                window.document.querySelector(".container-fluid .header-card-line").remove();
-                window.document.querySelector(".container-fluid .margin-top-15.text-right").remove();
-                window.document.getElementById("form-comment").remove();
-                window.document.getElementById("comment-list").remove();
+                try { window.document.querySelector(".container-fluid .header-card-line").remove(); } catch(e) {}
+                try { window.document.querySelector(".container-fluid .margin-top-15.text-right").remove(); } catch(e) {}
+                try { window.document.getElementById("form-comment").remove(); } catch(e) {}
+                try { window.document.getElementById("comment-list").remove(); } catch(e) {}
 
 
                 iimPlayCode(
