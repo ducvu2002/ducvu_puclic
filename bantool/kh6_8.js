@@ -233,6 +233,18 @@ function get_video_pdf(dom_html, path) {
                 } else {
                     write_data(path_save, "error.txt", pathx + "Đề thi.pdf");
                 }
+                
+                if (window.document.querySelector(".answer") == null) {
+                    iimPlayCode(
+                        'TAB CLOSE' + "\n" +
+                        'WAIT SECONDS=1'
+                    );
+                    write_data(path_save, "error.txt", pathx + " : Không có đáp án");
+                    break;
+                }
+                
+                
+                
 
                 try { window.document.querySelector(".container-fluid .row .row .col-md-12").remove(); } catch(e) {}
                 try { window.document.querySelector(".container-fluid .col-md-4.col-sm-12.col-xs-12").remove(); } catch(e) {}
