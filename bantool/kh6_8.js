@@ -297,7 +297,7 @@ function get_video_pdf(dom_html, path) {
 
 
                 iimPlayCode(
-                    'WAIT SECONDS=1' + "\n" +
+                    'WAIT SECONDS=2' + "\n" +
                     'SAVEAS TYPE=PNG FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải.png' + "\n" +
                     'TAB CLOSE' + "\n" +
                     'WAIT SECONDS=1'
