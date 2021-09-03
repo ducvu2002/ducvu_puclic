@@ -319,12 +319,12 @@ path_save = get_csv(1, 1);
 url_khoahoc = get_csv(2, 1);
 
 
-
-iimPlayCode("URL GOTO=" + url_khoahoc.replace(/ /g, '<SP>'));
+iimPlayCode("URL GOTO=https://ngoaingu24h.vn/");
 while (window.document.querySelector(".img-avatar.login-dialog-img-panel.loaded") == null) {
     iimPlayCode('WAIT SECONDS=1');
 }
 
+iimPlayCode("URL GOTO=" + url_khoahoc.replace(/ /g, '<SP>'));
 while (window.document.readyState != 'complete') {
     iimPlayCode('WAIT SECONDS=1');
 }
