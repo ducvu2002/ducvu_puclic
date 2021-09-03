@@ -239,15 +239,11 @@ function get_exam(url, path) {
     } else {
         write_data(path_save, "error.txt", path + "đề thi.pdf");
     }
-    let type = 'CPL';
-    let name_da = 'Hướng<SP>dẫn<SP>giải';
+
     while (true) {
         let nopbai;
         while (true) {
             try {
-                if (Number(window.document.querySelector(".gwt-HTML").textContent.trim().replace(" Câu", "")) <= 20) {
-                    type = 'PNG';
-                };
                 window.document.querySelector(".button-play-main").click();
             } catch (e) {}
             iimPlayCode('WAIT SECONDS=1');
@@ -322,11 +318,37 @@ function get_exam(url, path) {
         if (dom == null) break;
         dom.remove();
     }
+    iimPlayCode('WAIT SECONDS=1');
 
+    let list_da = window.document.getElementsByClassName("question-item-main-panel");
+    let start = 0;
+    let end;
+    let n_img = 0;
+    while (true) {
+        for (let i = start - 1; i >= 0; i--) {
+            list_da[i].style.display = "none";
+        }
+        end = start + 20;
+        if (end > list_da.length) {
+            end = list_da.length;
+        }
+        for (let i = start; i < end; i++) {
+            list_da[i].style.display = "";
+        }
+        for (let i = end; i < list_da.length; i++) {
+            list_da[i].style.display = "none";
+        }
+        iimPlayCode(
+            'WAIT SECONDS=1' + "\n" +
+            'SAVEAS TYPE=PNG FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải<SP>' + (++n_img)
+        );
+        if (end == list_da.length) {
+            break;
+        }
+        start += 20;
+    }
 
     iimPlayCode(
-        'WAIT SECONDS=1' + "\n" +
-        'SAVEAS TYPE=' + type + ' FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=' + name_da + "\n" +
         'TAB CLOSE' + "\n" +
         'WAIT SECONDS=1'
     );
