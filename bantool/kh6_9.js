@@ -375,7 +375,7 @@ while (window.document.querySelector(".topic-item-panel") == null) {
 }
 
 
-name_khoa_hoc = window.document.querySelector(".banner-content-text").textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
+name_khoa_hoc = window.document.querySelector(".path-panel-style.path-link-new-style .active").textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
 get_bai(window.document.documentElement, path_save + "\\" + name_khoa_hoc + "\\");
 
 
