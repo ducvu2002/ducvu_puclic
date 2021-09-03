@@ -160,9 +160,9 @@ function get_bai(dom_html, path, main = true) {
         let id_bai = info_bai.getAttribute("data-target"); //#collapse-topic-item-(21)
         let link_bai = "https://ngoaingu24h.vn" + get_link_bai(name_bai, id_bai.substr(21));
         if (bai[x].querySelector("#Shape") != null) {
-            get_video(link_bai, path + "\\" + name_bai.replace(/[\/\\:*?"<>|]/g, '_') + "\\");
+            get_video(link_bai, path + "\\" + x + "_" + name_bai.replace(/[\/\\:*?"<>|]/g, '_') + "\\");
         } else {
-            get_exam(link_bai, path + "\\" + name_bai.replace(/[\/\\:*?"<>|]/g, '_') + "\\");
+            get_exam(link_bai, path + "\\" + x + "_" + name_bai.replace(/[\/\\:*?"<>|]/g, '_') + "\\");
         }
         x++;
     }
