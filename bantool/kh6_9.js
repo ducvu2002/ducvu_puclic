@@ -260,7 +260,7 @@ function get_exam(url, path) {
             }
             select_da = window.document.getElementsByClassName("BTB");
             for (let i = 0; i < select_da.length; i++) {
-                select_da[i].querySelector(".radioButtonAnswer").click();
+                try { select_da[i].querySelector(".radioButtonAnswer").click(); } catch (e) {}
             }
             while ((nopbai = window.document.querySelector("#btn-submit-game")) != null) {
                 try {
@@ -320,7 +320,7 @@ function get_exam(url, path) {
     }
     iimPlayCode('WAIT SECONDS=1');
 
-    let list_da = window.document.getElementsByClassName("question-item-main-panel");
+    let list_da = window.document.querySelectorAll("[id^='childQuestion-']");
     let start = 0;
     let end;
     while (true) {
