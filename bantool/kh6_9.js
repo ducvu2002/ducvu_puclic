@@ -321,6 +321,9 @@ function get_exam(url, path) {
     iimPlayCode('WAIT SECONDS=1');
 
     let list_da = window.document.querySelectorAll("[id^='childQuestion-']");
+    if (list_da.length == 0) {
+        list_da = window.document.querySelectorAll("[id^='mainViewPanel-']");
+    }
     let start = 0;
     let end;
     while (true) {
