@@ -159,10 +159,21 @@ function get_bai(dom_html, path, main = true) {
         let name_bai = info_bai.textContent.trim();
         let id_bai = info_bai.getAttribute("data-target"); //#collapse-topic-item-(21)
         let link_bai = "https://ngoaingu24h.vn" + get_link_bai(name_bai, id_bai.substr(21));
-        if (bai[x].querySelector("#Shape") != null) {
-            get_video(link_bai, path + "\\" + x + "_" + name_bai.replace(/[\/\\:*?"<>|]/g, '_') + "\\");
+        let pathx = path + "\\" + x + "_" + name_bai.replace(/[\/\\:*?"<>|]/g, '_') + "\\";
+        if (bai[x].querySelector(".fa.fa-angle-double-right") != null) {
+            let dom_list_bai = dom_html.querySelector(id_bai);
+            while (dom_list_bai.getAttribute("aria-expanded") != "true") {
+                bai[x].querySelector(".fa.fa-angle-double-right").click();
+                iimPlayCode('WAIT SECONDS=1');
+            }
+            while (dom_list_bai.querySelector(".topic-item-panel") == null) {
+                iimPlayCode('WAIT SECONDS=1');
+            }
+            get_bai(dom_list_bai, pathx, false);
+        } else if (bai[x].querySelector("#Shape") != null) {
+            get_video(link_bai, pathx);
         } else {
-            get_exam(link_bai, path + "\\" + x + "_" + name_bai.replace(/[\/\\:*?"<>|]/g, '_') + "\\");
+            get_exam(link_bai, pathx);
         }
         x++;
     }
@@ -180,8 +191,8 @@ function get_video(url, path) {
         iimPlayCode('WAIT SECONDS=1');
     }
     iimPlayCode('WAIT SECONDS=2');
-    
-    
+
+
     let dom_video = window.document.querySelector("#check-mathjax-element img");
     if (dom_video != null) {
         write_data(path_list_download, "list_download.txt", path + "Bài giảng.mp4" + "|" + dom_video.getAttribute("src-video-js"));
@@ -220,7 +231,7 @@ function get_exam(url, path) {
         iimPlayCode('WAIT SECONDS=1');
     }
     iimPlayCode('WAIT SECONDS=2');
-    
+
 
     let dom_pdf = window.document.querySelector(".document-item.flex .view");
     if (dom_pdf != null) {
@@ -228,11 +239,15 @@ function get_exam(url, path) {
     } else {
         write_data(path_save, "error.txt", path + "đề thi.pdf");
     }
-
+    let type = 'CPL';
+    let name_da = 'Hướng<SP>dẫn<SP>giải';
     while (true) {
         let nopbai;
         while (true) {
             try {
+                if (Number(window.document.querySelector(".gwt-HTML").textContent.trim().replace(" Câu", "")) <= 20) {
+                    type = 'PNG';
+                };
                 window.document.querySelector(".button-play-main").click();
             } catch (e) {}
             iimPlayCode('WAIT SECONDS=1');
@@ -244,10 +259,14 @@ function get_exam(url, path) {
             iimPlayCode('WAIT SECONDS=1');
             break;
         } else {
+            while (window.document.querySelector(".BTB") == null) {
+                iimPlayCode('WAIT SECONDS=1');
+            }
+            select_da = window.document.getElementsByClassName("BTB");
+            for (let i = 0; i < select_da.length; i++) {
+                select_da[i].querySelector(".radioButtonAnswer").click();
+            }
             while ((nopbai = window.document.querySelector("#btn-submit-game")) != null) {
-                try {
-                    window.document.querySelector(".BTB").querySelector(".radioButtonAnswer").click();
-                } catch (e) {}
                 try {
                     nopbai.click();
                 } catch (e) {}
@@ -307,7 +326,7 @@ function get_exam(url, path) {
 
     iimPlayCode(
         'WAIT SECONDS=1' + "\n" +
-        'SAVEAS TYPE=PNG FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải.png' + "\n" +
+        'SAVEAS TYPE=' + type + ' FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=' + name_da + "\n" +
         'TAB CLOSE' + "\n" +
         'WAIT SECONDS=1'
     );
@@ -327,7 +346,9 @@ while (window.document.querySelector(".img-avatar.login-dialog-img-panel.loaded"
 while (window.document.readyState != 'complete') {
     iimPlayCode('WAIT SECONDS=1');
 }
-iimPlayCode('WAIT SECONDS=2');
+while (window.document.querySelector(".topic-item-panel") == null) {
+    iimPlayCode('WAIT SECONDS=1');
+}
 
 
 name_khoa_hoc = window.document.querySelector(".banner-content-text").textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
