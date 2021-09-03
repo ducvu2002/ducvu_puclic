@@ -1,6 +1,6 @@
 iimPlayCode('URL GOTO=about:newtab');
 var x1;
-var x2 = -1;
+var x2 = 9999999999999;
 
 
 
@@ -28,8 +28,7 @@ while (true) {
 
 switch (tinh_nang) {
     case '1':
-        chuong = 0;
-        bai1 = 0;
+        x1 = 1;
         break;
     case '2':
         while (true) {
