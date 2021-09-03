@@ -323,7 +323,6 @@ function get_exam(url, path) {
     let list_da = window.document.getElementsByClassName("question-item-main-panel");
     let start = 0;
     let end;
-    let n_img = 0;
     while (true) {
         for (let i = start - 1; i >= 0; i--) {
             list_da[i].style.display = "none";
@@ -340,7 +339,7 @@ function get_exam(url, path) {
         }
         iimPlayCode(
             'WAIT SECONDS=1' + "\n" +
-            'SAVEAS TYPE=PNG FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải<SP>' + (++n_img)
+            'SAVEAS TYPE=PNG FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải<SP>câu<SP>' + (start+1) + "-" + end
         );
         if (end == list_da.length) {
             break;
