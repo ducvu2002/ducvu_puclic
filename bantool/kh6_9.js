@@ -171,7 +171,7 @@ function get_bai(dom_html, path, main = true) {
                 iimPlayCode('WAIT SECONDS=1');
             }
             get_bai(dom_list_bai, pathx, false);
-        } else if (bai[x].querySelector("#Shape") != null) {
+        } else if (bai[x].querySelector("#Shape") != null || bai[x].querySelector("path").getAttribute("d").startsWith("M99")) {
             get_video(link_bai, pathx);
         } else {
             get_exam(link_bai, pathx);
