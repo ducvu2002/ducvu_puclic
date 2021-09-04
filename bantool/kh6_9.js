@@ -201,9 +201,11 @@ function get_video(url, path) {
     }
 
 
-    let dom_pdf = window.document.querySelector(".document-item.flex .view");
-    if (dom_pdf != null) {
-        downloadURI(dom_pdf.href, path, "tài liệu.pdf");
+    let dom_pdf = window.document.querySelectorAll(".document-item.flex .view");
+    if (dom_pdf.length > 0) {
+        for (let i = 0; i < dom_pdf.length; i++) {
+            downloadURI(dom_pdf[i].href, path, "tài liệu " + (i+1) + ".pdf");
+        }
     } else {
         write_data(path_save, "error.txt", path + "tài liệu.pdf");
     }
@@ -233,11 +235,13 @@ function get_exam(url, path) {
     iimPlayCode('WAIT SECONDS=2');
 
 
-    let dom_pdf = window.document.querySelector(".document-item.flex .view");
-    if (dom_pdf != null) {
-        downloadURI(dom_pdf.href, path, "đề thi.pdf");
+    let dom_pdf = window.document.querySelectorAll(".document-item.flex .view");
+    if (dom_pdf.length > 0) {
+        for (let i = 0; i < dom_pdf.length; i++) {
+            downloadURI(dom_pdf[i].href, path, "tài liệu " + (i+1) + ".pdf");
+        }
     } else {
-        write_data(path_save, "error.txt", path + "đề thi.pdf");
+        write_data(path_save, "error.txt", path + "tài liệu.pdf");
     }
 
     while (true) {
