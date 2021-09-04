@@ -180,6 +180,19 @@ function get_bai(dom_html, path, main = true) {
 }
 
 
+
+function get_m3u8() {
+    var capture_resource = window.performance.getEntriesByType("resource");
+	window.performance.clearResourceTimings();
+	for (var i = 0; i < capture_resource.length; i++) {
+		let link = capture_resource[i].name;
+		if (link.indexOf(".m3u8") != -1) {
+			return link;
+		}
+	}
+	return "";
+}
+
 function get_video(url, path) {
     iimPlayCode(
         'TAB OPEN' + "\n" +
@@ -196,6 +209,12 @@ function get_video(url, path) {
     let dom_video = window.document.querySelector("#check-mathjax-element img");
     if (dom_video != null) {
         write_data(path_list_download, "list_download.txt", path + "Bài giảng.mp4" + "|" + dom_video.getAttribute("src-video-js"));
+    } else if ((dom_video=window.document.querySelector("#videos-live-stream-content .video-item")) != null) {
+        window.performance.clearResourceTimings();
+        dom_video.click();
+        dom_video = "";
+        while ((dom_video=get_m3u8()) == "") { iimPlayCode('WAIT SECONDS=1'); }
+        write_data(path_list_download, "list_download.txt", path + "Bài giảng.mp4" + "|" + dom_video);
     } else {
         write_data(path_save, "error.txt", path + "Bài giảng.mp4");
     }
@@ -264,7 +283,16 @@ function get_exam(url, path) {
             }
             select_da = window.document.getElementsByClassName("BTB");
             for (let i = 0; i < select_da.length; i++) {
-                try { select_da[i].querySelector(".radioButtonAnswer").click(); } catch (e) {}
+                try {
+                    if (select_da[i].querySelector(".radioButtonAnswer") != null) {
+                        select_da[i].querySelector(".radioButtonAnswer").click();
+                    } else {
+                        iimPlayCode(
+                        	'SET !TIMEOUT_STEP 1' + "\n" +
+                        	`EVENTS TYPE=KEYPRESS SELECTOR="#${select_da[i].id} .answerTextAreaRight" CHARS=" "`
+                        );
+                    }
+                } catch (e) {}
             }
             while ((nopbai = window.document.querySelector("#btn-submit-game")) != null) {
                 try {
