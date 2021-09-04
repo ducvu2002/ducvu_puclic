@@ -207,17 +207,21 @@ function get_video(url, path) {
     iimPlayCode('WAIT SECONDS=2');
 
 
-    let dom_video = window.document.querySelector("#check-mathjax-element img");
-    if (dom_video != null) {
-        write_data(path_list_download, "list_download.txt", path + "Bài giảng.mp4" + "|" + dom_video.getAttribute("src-video-js"));
-    } else if ((dom_video = window.document.querySelector("#videos-live-stream-content .video-item")) != null) {
-        window.performance.clearResourceTimings();
-        dom_video.click();
-        dom_video = "";
-        while ((dom_video = get_m3u8()) == "") {
-            iimPlayCode('WAIT SECONDS=1');
+    let dom_video = window.document.querySelectorAll("#check-mathjax-element img");
+    if (dom_video.length > 0) {
+        for (let i = 0; i < dom_video.length; i++) {
+            write_data(path_list_download, "list_download.txt", path + "Bài giảng " + (i + 1) + ".mp4" + "|" + dom_video[i].getAttribute("src-video-js"));
         }
-        write_data(path_list_download, "list_download.txt", path + "Bài giảng.mp4" + "|" + dom_video);
+    } else if ((dom_video = window.document.querySelectorAll("#videos-live-stream-content .video-item")).length > 0) {
+        for (let i = 0; i < dom_video.length; i++) {
+            window.performance.clearResourceTimings();
+            dom_video[i].click();
+            let link_video = "";
+            while ((link_video = get_m3u8()) == "") {
+                iimPlayCode('WAIT SECONDS=1');
+            }
+            write_data(path_list_download, "list_download.txt", path + "Bài giảng " + (i + 1) + ".mp4" + "|" + link_video);
+        }
     } else {
         write_data(path_save, "error.txt", path + "Bài giảng.mp4");
     }
