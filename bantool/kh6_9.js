@@ -363,31 +363,37 @@ function get_exam(url, path) {
     if (list_da.length == 0) {
         list_da = window.document.querySelectorAll("[id^='mainViewPanel-']");
     }
+
+
+    let dom_capture = window.document.querySelector(".game-content-panel");
+    let max_height = 60000; //65536 
+    //save image
     let start = 0;
-    let end;
     while (true) {
-        for (let i = start - 1; i >= 0; i--) {
-            list_da[i].style.display = "none";
+        let end = list_da.length;
+        while (dom_capture.offsetHeight > max_height) {
+            list_da[end - 1].style.display = "none";
+            end--;
         }
-        end = start + 20;
-        if (end > list_da.length) {
-            end = list_da.length;
-        }
-        for (let i = start; i < end; i++) {
-            list_da[i].style.display = "";
-        }
-        for (let i = end; i < list_da.length; i++) {
-            list_da[i].style.display = "none";
-        }
+
         iimPlayCode(
             'WAIT SECONDS=1' + "\n" +
-            'SAVEAS TYPE=PNG FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải<SP>câu<SP>' + (start + 1) + "-" + end
+            'ONDOWNLOAD FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải<SP>câu<SP>' + (start + 1) + "-" + end + ".png" + "\n" +
+            'TAG POS=1 TYPE=DIV ATTR=CLASS:game-content-panel* CONTENT=EVENT:SAVE_ELEMENT_SCREENSHOT'
         );
+
         if (end == list_da.length) {
             break;
         }
-        start += 20;
+        for (let i = end; i < list_da.length; i++) {
+            list_da[i].style.display = "";
+        }
+        start = end;
+        for (let i = start - 1; i >= 0; i--) {
+            list_da[i].style.display = "none";
+        }
     }
+
 
     iimPlayCode(
         'TAB CLOSE' + "\n" +
