@@ -319,6 +319,7 @@ function get_video_pdf(dom_html, path) {
 
 
 
+                iimPlayCode('WAIT SECONDS=1');
                 cau = window.document.querySelectorAll(".answer");
                 dom_capture = window.document.querySelector(".bg-color-white.content-card");
 
