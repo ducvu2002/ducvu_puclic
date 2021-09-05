@@ -218,12 +218,16 @@ function get_video_pdf(dom_html, path) {
                 }
 
 
-                try { window.document.getElementById("menutop-sticky-wrapper").remove(); } catch(e) {}
-                try { window.document.querySelector(".breadcrumbs").remove(); } catch(e) {}
-                try { window.document.querySelector(".footer-default").remove(); } catch(e) {}
-                for (let i = 0; i < 2; i++) {
-                    try { window.document.querySelector(".container-fluid>div").remove(); } catch(e) {}
-                }
+                try {
+                    window.document.getElementById("menutop-sticky-wrapper").remove();
+                } catch (e) {}
+                try {
+                    window.document.querySelector(".breadcrumbs").remove();
+                } catch (e) {}
+                try {
+                    window.document.querySelector(".footer-default").remove();
+                } catch (e) {}
+
 
                 let dom_pdf = window.document.querySelector(".btn.btn-link.btn-lg");
                 if (dom_pdf != null) {
@@ -231,7 +235,7 @@ function get_video_pdf(dom_html, path) {
                 } else {
                     write_data(path_save, "error.txt", path + "Đề thi.pdf");
                 }
-                
+
                 if (window.document.querySelector(".answer") == null) {
                     iimPlayCode(
                         'TAB CLOSE' + "\n" +
@@ -241,13 +245,22 @@ function get_video_pdf(dom_html, path) {
                     write_data(path_save, "error.txt", path + " : Không có đáp án");
                     break;
                 }
-                
-                
-                
 
-                try { window.document.querySelector(".container-fluid .row .row .col-md-12").remove(); } catch(e) {}
-                try { window.document.querySelector(".container-fluid .col-md-4.col-sm-12.col-xs-12").remove(); } catch(e) {}
-                try { window.document.querySelector(".container-fluid .text-right.margin-bottom-15").remove(); } catch(e) {}
+
+
+
+                try {
+                    window.document.querySelector(".container-fluid .row .row .col-md-12").remove();
+                } catch (e) {}
+                try {
+                    window.document.querySelector(".container-fluid .col-md-4.col-sm-12.col-xs-12").remove();
+                } catch (e) {}
+                try {
+                    window.document.querySelector(".container-fluid .text-right.margin-bottom-15").remove();
+                } catch (e) {}
+                try {
+                    window.document.querySelector(".modal.fade.modal-eror").remove();
+                } catch (e) {}
                 while (true) {
                     let dom_cau = window.document.querySelector(".answer.lock");
                     if (dom_cau == null) {
@@ -290,15 +303,57 @@ function get_video_pdf(dom_html, path) {
                     }
                     dom.remove();
                 }
-                try { window.document.querySelector(".container-fluid .header-card-line").remove(); } catch(e) {}
-                try { window.document.querySelector(".container-fluid .margin-top-15.text-right").remove(); } catch(e) {}
-                try { window.document.getElementById("form-comment").remove(); } catch(e) {}
-                try { window.document.getElementById("comment-list").remove(); } catch(e) {}
+                try {
+                    window.document.querySelector(".container-fluid .header-card-line").remove();
+                } catch (e) {}
+                try {
+                    window.document.querySelector(".container-fluid .margin-top-15.text-right").remove();
+                } catch (e) {}
+                try {
+                    window.document.getElementById("form-comment").remove();
+                } catch (e) {}
+                try {
+                    window.document.getElementById("comment-list").remove();
+                } catch (e) {}
+
+
+
+
+                cau = window.document.querySelectorAll(".answer");
+                dom_capture = window.document.querySelector(".bg-color-white.content-card");
+
+                max_height = 60000; //65536 
+
+                //save image
+                let start = 0;
+                while (true) {
+                    let end = cau.length;
+                    while (dom_capture.offsetHeight > max_height) {
+                        cau[end - 1].className = cau[end - 1].className.replace("answer block", "answer lock");
+                        end--;
+                    }
+
+                    iimPlayCode(
+                        'WAIT SECONDS=1' + "\n" +
+                        'ONDOWNLOAD FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải<SP>câu<SP>' + (start + 1) + "-" + end + ".png" + "\n" +
+                        'TAG POS=1 TYPE=DIV ATTR=CLASS:bg-color-white<SP>content-card CONTENT=EVENT:SAVE_ELEMENT_SCREENSHOT'
+                    );
+
+                    if (end == cau.length) {
+                        break;
+                    }
+                    for (let i = end; i < cau.length; i++) {
+                        cau[i].className = cau[i].className.replace("answer lock", "answer block");
+                    }
+                    start = end;
+                    for (let i = start - 1; i >= 0; i--) {
+                        cau[i].className = cau[i].className.replace("answer block", "answer lock");
+                    }
+                }
+
 
 
                 iimPlayCode(
-                    'WAIT SECONDS=2' + "\n" +
-                    'SAVEAS TYPE=PNG FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải.png' + "\n" +
                     'TAB CLOSE' + "\n" +
                     'WAIT SECONDS=1'
                 );
