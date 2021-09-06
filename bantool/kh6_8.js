@@ -323,7 +323,7 @@ function get_video_pdf(dom_html, path) {
                 let cau = window.document.querySelectorAll(".answer");
                 let dom_capture = window.document.querySelector(".bg-color-white.content-card");
 
-                let max_height = 60000; //65536 
+                let max_height = 5000; //65536 
 
                 //save image
                 let start = 0;
