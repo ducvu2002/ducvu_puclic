@@ -359,14 +359,22 @@ function get_exam(url, path) {
     }
     iimPlayCode('WAIT SECONDS=1');
 
+    let group_da = window.document.querySelectorAll("[id^='mainViewPanel-']");
     let list_da = window.document.querySelectorAll("[id^='childQuestion-']");
     if (list_da.length == 0) {
-        list_da = window.document.querySelectorAll("[id^='mainViewPanel-']");
+        list_da = group_da;
+    }
+
+    function identify_group(id_da) {
+        for (let i = 0; i < group_da.length; i++) {
+            if (group_da[i].querySelector(`#${id_da}`) != null) return i;
+        }
+        return 0;
     }
 
 
     let dom_capture = window.document.querySelector(".game-content-panel");
-    let max_height = 60000; //65536 
+    let max_height = 5000; //65536
     //save image
     let start = 0;
     while (true) {
@@ -375,6 +383,29 @@ function get_exam(url, path) {
             list_da[end - 1].style.display = "none";
             end--;
         }
+
+
+        let start_group;
+        let end_group;
+        if (list_da != group_da) {
+            start_group = identify_group(list_da[start].id);
+            end_group = identify_group(list_da[end - 1].id);
+            if (group_da[start_group].firstElementChild.tagName == "TABLE") {
+                group_da[start_group].firstElementChild.remove();
+            }
+            if (group_da[end_group].firstElementChild.tagName == "TABLE") {
+                group_da[end_group].firstElementChild.remove();
+            }
+
+
+            for (let i = start_group - 1; i >= 0; i--) {
+                group_da[i].style.display = "none";
+            }
+            for (let i = end_group + 1; i < group_da.length; i++) {
+                group_da[i].style.display = "none";
+            }
+        }
+
 
         iimPlayCode(
             'WAIT SECONDS=1' + "\n" +
@@ -385,6 +416,17 @@ function get_exam(url, path) {
         if (end == list_da.length) {
             break;
         }
+
+
+        if (list_da != group_da) {
+            for (let i = start_group - 1; i >= 0; i--) {
+                group_da[i].style.display = "";
+            }
+            for (let i = end_group + 1; i < group_da.length; i++) {
+                group_da[i].style.display = "";
+            }
+        }
+
         for (let i = end; i < list_da.length; i++) {
             list_da[i].style.display = "";
         }
