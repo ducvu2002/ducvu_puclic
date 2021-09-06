@@ -245,7 +245,7 @@ function get_result_exam(id, path) {
     loi_giai = window.document.querySelectorAll(".main-content.bg-paper-w.full-exam-list .main-content>.row");
     dom_capture = window.document.querySelector(".main-content.bg-paper-w.full-exam-list .main-content");
 
-    max_height = 60000; //65536 
+    max_height = 5000; //65536 
 
     //save image
     let start = 0;
