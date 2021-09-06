@@ -236,7 +236,7 @@ function get_result_exam(id, path) {
     loi_giai = window.document.querySelectorAll(".quizContentQuestions>.row");
     dom_capture = window.document.querySelector(".quizContentQuestions");
 
-    max_height = 60000; //65536 
+    max_height = 5000; //65536 
 
     //save image
     let start = 0;
