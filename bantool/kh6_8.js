@@ -200,11 +200,13 @@ function get_video_pdf(dom_html, path) {
         }
     } else {
         while (true) {
+            let pathx = path + name_obj + "\\";
+            create_folder(pathx);
             let dom_thi = request_dom(dom_html.href).querySelector("#sidebarleft .btn.btn-danger");
             if (dom_thi.textContent.trim() == "Làm đề thi") {
                 request_dom(dom_thi.getAttribute("data-href"));
             } else if (dom_thi.textContent.trim() == "Nạp tiền vào tài khoản") {
-                write_data(path_save, "error.txt", path + " : hết lượt xem");
+                write_data(path_save, "error.txt", pathx + " : hết lượt xem");
                 break;
             } else {
                 iimPlayCode(
@@ -231,9 +233,9 @@ function get_video_pdf(dom_html, path) {
 
                 let dom_pdf = window.document.querySelector(".btn.btn-link.btn-lg");
                 if (dom_pdf != null) {
-                    list_download.push([dom_pdf.href, path, "Đề thi.pdf"]);
+                    list_download.push([dom_pdf.href, pathx, "Đề thi.pdf"]);
                 } else {
-                    write_data(path_save, "error.txt", path + "Đề thi.pdf");
+                    write_data(path_save, "error.txt", pathx + "Đề thi.pdf");
                 }
 
                 if (window.document.querySelector(".answer") == null) {
@@ -241,8 +243,8 @@ function get_video_pdf(dom_html, path) {
                         'TAB CLOSE' + "\n" +
                         'WAIT SECONDS=1'
                     );
-                    write_data(path, "không có hướng dẫn giải.txt", "");
-                    write_data(path_save, "error.txt", path + " : Không có đáp án");
+                    write_data(pathx, "không có hướng dẫn giải.txt", "");
+                    write_data(path_save, "error.txt", pathx + " : Không có đáp án");
                     break;
                 }
 
@@ -336,7 +338,7 @@ function get_video_pdf(dom_html, path) {
 
                     iimPlayCode(
                         'WAIT SECONDS=1' + "\n" +
-                        'ONDOWNLOAD FOLDER=' + path.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải<SP>câu<SP>' + (start + 1) + "-" + end + ".png" + "\n" +
+                        'ONDOWNLOAD FOLDER=' + pathx.replace(/ /g, '<SP>') + ' FILE=Hướng<SP>dẫn<SP>giải<SP>câu<SP>' + (start + 1) + "-" + end + ".png" + "\n" +
                         'TAG POS=1 TYPE=DIV ATTR=CLASS:bg-color-white<SP>content-card CONTENT=EVENT:SAVE_ELEMENT_SCREENSHOT'
                     );
 
