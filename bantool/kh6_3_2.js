@@ -214,12 +214,12 @@ while (window.document.querySelector(dom) != null) {
                 domx = ".ant-list-bordered .ant-list-item:nth-child(1)>a>button:nth-child(" + (1) + ")";
                 iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + ten_bai.replace(/ /g, '<SP>') + ".pdf" + " WAIT=NO");
                 window.document.querySelector(domx).click();
-                iimPlayCode('WAIT SECONDS=3');
+                iimPlayCode('WAIT SECONDS=5');
 
                 domx = ".ant-list-bordered .ant-list-item:nth-child(1)>a>button:nth-child(" + (2) + ")";
                 iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + (ten_bai + '[Lời giải + Đáp án]').replace(/ /g, '<SP>') + ".pdf" + " WAIT=NO");
                 window.document.querySelector(domx).click();
-                iimPlayCode('WAIT SECONDS=3');
+                iimPlayCode('WAIT SECONDS=5');
             } catch (e) {}
 
         } else {
