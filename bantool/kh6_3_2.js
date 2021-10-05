@@ -212,12 +212,12 @@ while (window.document.querySelector(dom) != null) {
             //tải file pdf
             try {
                 domx = ".ant-list-bordered .ant-list-item:nth-child(1)>a>button:nth-child(" + (1) + ")";
-                iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + ten_bai.replace(/ /g, '<SP>') + ".pdf" + " WAIT=NO");
+                iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + ten_bai.replace(/ /g, '<SP>') + ".pdf" + " WAIT=YES");
                 window.document.querySelector(domx).click();
                 iimPlayCode('WAIT SECONDS=1');
 
                 domx = ".ant-list-bordered .ant-list-item:nth-child(1)>a>button:nth-child(" + (2) + ")";
-                iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + (ten_bai + '[Lời giải + Đáp án]').replace(/ /g, '<SP>') + ".pdf" + " WAIT=NO");
+                iimPlayCode("ONDOWNLOAD FOLDER=" + path_save_video.replace(/ /g, '<SP>') + " FILE=" + (ten_bai + '[Lời giải + Đáp án]').replace(/ /g, '<SP>') + ".pdf" + " WAIT=YES");
                 window.document.querySelector(domx).click();
                 iimPlayCode('WAIT SECONDS=1');
             } catch (e) {}
