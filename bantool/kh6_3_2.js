@@ -167,7 +167,13 @@ function get_link_video() {
 
 dom = '.section:nth-child(' + (i + 1) + ')';
 first = true;
-khoa_hoc = window.document.querySelector('.course-detail-title').textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
+while (true) {
+    try {
+        khoa_hoc = window.document.querySelector('.course-detail-title').textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
+        break;
+    } catch (e) {}
+    iimPlayCode('WAIT SECONDS=1');
+}
 while (window.document.querySelector(dom) != null) {
     if (i == i2 && j == j2) {
         break;
