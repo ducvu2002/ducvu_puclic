@@ -140,16 +140,20 @@ while (window.document.querySelector('video') == null) {
 
 
 function get_link_video() {
-    iframe = window.document.querySelector("iframe").contentWindow;
-    while (iframe.document.querySelector('video') == null) {
+    if (window.document.querySelector(".responsive-iframe") != null) {
+        iframe = window.document.querySelector("iframe").contentWindow.document.documentElement;
+    } else {
+        iframe = window.document.documentElement;
+    }
+    while (iframe.querySelector('video') == null) {
         try {
             if (window.document.querySelector('.ant-result-title').textContent == "Bạn đã xem hết lượt xem của video này") return "hết lượt xem";
         } catch (e) {}
         iimPlayCode('WAIT SECONDS=1');
     }
 
-    if (!iframe.document.querySelector('video').src.startsWith('blob:')) return iframe.document.querySelector('video').src;
-    playlist = iframe.document.querySelector('video>source').src;
+    if (!iframe.querySelector('video').src.startsWith('blob:')) return iframe.querySelector('video').src;
+    playlist = iframe.querySelector('video>source').src;
     //playlist.m3u8
     list_link = request(playlist).split("\n");
     for (let c = 0; c < list_link.length; c++) {
