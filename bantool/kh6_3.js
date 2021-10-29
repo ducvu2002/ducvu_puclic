@@ -13,8 +13,8 @@ function isNumeric(str) {
 var so_luong;
 while (true) {
 	so_luong = prompt('Nhập số luồng');
-	if (isNumeric(so_luong)) break;
-	alert('Nhập không đúng vui lòng nhập lại');
+    if (isNumeric(so_luong)) break;
+    alert('Nhập không đúng vui lòng nhập lại');
 }
 
 
@@ -195,7 +195,13 @@ while (window.document.querySelector(dom) != null) {
 		if ( status_wait == null ) {
 			while (window.document.querySelector(domx) != null) {
 				domx_video = window.document.querySelector(domx + ">a");
-				view_remaining = window.document.querySelector(domx + ">span").className;
+				
+				try {
+					view_remaining = window.document.querySelector(domx + ">span").className;
+				} catch(e) {
+					view_remaining = "";
+				}
+				
 				if (x != 1) {
 					domx_video.click();
 					while (domx_video.className != "document-name active" && view_remaining == "view-remaining") { iimPlayCode('WAIT SECONDS=1'); }
