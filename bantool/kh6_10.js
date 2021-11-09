@@ -264,9 +264,10 @@ temp = "";
 function get_link_video(path) {
     var capture_resource = window.performance.getEntriesByType("resource");
     while (true) {
-        for (var i = 0; i < capture_resource.length; i++) {
+        for (var i = capture_resource.length-1; i >= 0; i--) {
             let link = capture_resource[i].name;
-            if (link.endsWith("/index.m3u8") && temp != link) { //type xmlhttprequest
+            if (link.endsWith("/index.m3u8")) { //type xmlhttprequest
+                if (temp == link) break;
                 temp = link;
                 window.performance.clearResourceTimings();
                 iimPlayCode('WAIT SECONDS=1');
