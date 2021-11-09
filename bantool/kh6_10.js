@@ -244,9 +244,10 @@ function get_link_video(path) {
                 let list_m = request(link);
                 
                 
-                max = 0;
-                while ((x = list_m.indexOf("cdnkey")) != -1) {
-                    list_m = list_m.substr(x+7);
+                let max = 0;
+                let i;
+                while ((i = list_m.indexOf("cdnkey")) != -1) {
+                    list_m = list_m.substr(i+7);
                     num = Number(list_m.substr(0, list_m.indexOf("p")));
                     if (max < num) max = num;
                 }
