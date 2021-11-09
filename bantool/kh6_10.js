@@ -179,8 +179,6 @@ function get_bai(dom_html, path) {
             stop = true;
             return;
         }
-        window.performance.clearResourceTimings();
-        iimPlayCode('WAIT SECONDS=1');
         bai[y].click();
         iimPlayCode('WAIT SECONDS=1');
         let name_bai = bai[y].querySelector(".ml-2").textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
