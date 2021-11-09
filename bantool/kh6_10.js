@@ -240,7 +240,7 @@ function get_link_video(path) {
             let link = capture_resource[i].name;
             if (link.endsWith("/index.m3u8")) { //type xmlhttprequest
                 window.performance.clearResourceTimings();
-
+                iimPlayCode('WAIT SECONDS=1');
                 let list_m = request(link);
                 
                 
@@ -288,7 +288,7 @@ while ((dom_khoa_hoc = window.document.querySelector(".cursor-pointer .content--
 }
 dom_khoa_hoc.click();
 window.performance.clearResourceTimings();
-iimPlayCode('WAIT SECONDS=1');
+iimPlayCode('WAIT SECONDS=2');
 
 get_chuong(window.document.querySelector(".pattern.syllabus"), path_save + "\\" + dom_khoa_hoc.textContent.trim().replace(/[\/\\:*?"<>|]/g, '_') + "\\");
 
