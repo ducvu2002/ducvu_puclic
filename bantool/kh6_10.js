@@ -1,3 +1,29 @@
+var request = function(url,data = null){
+ results="";
+ var xmlhttp= new window.XMLHttpRequest;
+  try {
+  var type = data==null?"GET":"POST";
+  xmlhttp.open(type, url, false);
+  xmlhttp.onreadystatechange=function() {
+     if (xmlhttp.readyState==4 ) {
+        if(xmlhttp.status==200 || xmlhttp.status==500 ){
+           results = xmlhttp.responseText;
+           //window.alert(results);
+           }
+        }
+   };
+   xmlhttp.send(data);
+ } catch (e) {};
+  return results;
+}
+
+
+
+
+
+
+
+
 iimPlayCode('URL GOTO=about:newtab');
 var x, y1;
 x2 = 9999999999999;
@@ -179,6 +205,7 @@ function get_bai(dom_html, path) {
             stop = true;
             return;
         }
+        window.performance.clearResourceTimings();
         bai[y].click();
         iimPlayCode('WAIT SECONDS=1');
         let name_bai = bai[y].querySelector(".ml-2").textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
@@ -232,21 +259,23 @@ function download_loi_giai(path, name) {
 
 
 
+temp = "";
 
 function get_link_video(path) {
     var capture_resource = window.performance.getEntriesByType("resource");
     while (true) {
         for (var i = 0; i < capture_resource.length; i++) {
             let link = capture_resource[i].name;
-            if (link.endsWith("/index.m3u8")) { //type xmlhttprequest
+            if (link.endsWith("/index.m3u8") && temp != link) { //type xmlhttprequest
+                temp = link;
                 window.performance.clearResourceTimings();
                 iimPlayCode('WAIT SECONDS=1');
                 let list_m = request(link);
                 
                 
                 let max = 0;
-                let i;
-                while ((i = list_m.indexOf("cdnkey")) != -1) {
+                let j;
+                while ((j = list_m.indexOf("cdnkey")) != -1) {
                     list_m = list_m.substr(i+7);
                     num = Number(list_m.substr(0, list_m.indexOf("p")));
                     if (max < num) max = num;
@@ -266,6 +295,7 @@ function get_link_video(path) {
 
             }
         }
+        capture_resource = window.performance.getEntriesByType("resource");
         iimPlayCode('WAIT SECONDS=1');
     }
 }
@@ -288,7 +318,7 @@ while ((dom_khoa_hoc = window.document.querySelector(".cursor-pointer .content--
 }
 dom_khoa_hoc.click();
 window.performance.clearResourceTimings();
-iimPlayCode('WAIT SECONDS=2');
+iimPlayCode('WAIT SECONDS=1');
 
 get_chuong(window.document.querySelector(".pattern.syllabus"), path_save + "\\" + dom_khoa_hoc.textContent.trim().replace(/[\/\\:*?"<>|]/g, '_') + "\\");
 
