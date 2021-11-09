@@ -93,7 +93,7 @@ function write_data(path, name_file, text) {
 
 function get_path_run() {
     iimPlayCode('SET !EXTRACT {{!FOLDER_DATASOURCE}}');
-    return iimGetLastExtract().substr(0, iimGetLastExtract().length-32);
+    return iimGetLastExtract().slice(0, -32);
 }
 
 function wait_load(link_current) {
