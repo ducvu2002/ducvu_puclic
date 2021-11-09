@@ -179,7 +179,6 @@ function get_bai(dom_html, path) {
             stop = true;
             return;
         }
-        window.performance.clearResourceTimings();
         bai[y].click();
         iimPlayCode('WAIT SECONDS=1');
         let name_bai = bai[y].querySelector(".ml-2").textContent.trim().replace(/[\/\\:*?"<>|]/g, '_');
@@ -242,17 +241,23 @@ function get_link_video(path) {
             if (link.endsWith("/index.m3u8")) { //type xmlhttprequest
                 window.performance.clearResourceTimings();
 
-                let data = request(link);
+                let list_m = request(link);
+                
+                
+                max = 0;
+                while ((x = list_m.indexOf("cdnkey")) != -1) {
+                    list_m = list_m.substr(x+7);
+                    num = Number(list_m.substr(0, list_m.indexOf("p")));
+                    if (max < num) max = num;
+                }
+                
+                
                 
                 let link_main = link.slice(0, -10);
-                let audio = data.substr(data.indexOf("cdnkey"));
-                audio = audio.substr(0, audio.indexOf(".m3u8") + 5);
-                let video = audio.replace("index-a1.m3u8", "index-v1.m3u8");
+                let audio = `${link_main}cdnkey-${max}p/index-a1.m3u8`;
+                let video = `${link_main}cdnkey-${max}p/index-v1.m3u8`;
                 
                 
-                
-                audio = link_main + audio;
-                video = link_main + video;
 
                 content_text = `${path}|ffmpeg -i "${video}" -i "${audio}" -c:v copy -c:a aac "${path}"`;
                 write_data(path_list_download, "list_download.csv", content_text);
@@ -281,6 +286,7 @@ while ((dom_khoa_hoc = window.document.querySelector(".cursor-pointer .content--
     iimPlayCode('WAIT SECONDS=1');
 }
 dom_khoa_hoc.click();
+window.performance.clearResourceTimings();
 iimPlayCode('WAIT SECONDS=1');
 
 get_chuong(window.document.querySelector(".pattern.syllabus"), path_save + "\\" + dom_khoa_hoc.textContent.trim().replace(/[\/\\:*?"<>|]/g, '_') + "\\");
