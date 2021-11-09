@@ -254,8 +254,9 @@ function get_link_video(path) {
                 audio = link_main + audio;
                 video = link_main + video;
 
-                content = `${path}|ffmpeg -i "${video}" -i "${audio}" -c:v copy -c:a aac "${path}"`;
-                write_data(path_list_download, "list_download.csv", content);
+                content_text = `${path}|ffmpeg -i "${video}" -i "${audio}" -c:v copy -c:a aac "${path}"`;
+                write_data(path_list_download, "list_download.csv", content_text);
+                return;
 
             }
         }
