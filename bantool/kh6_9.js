@@ -103,7 +103,7 @@ function downloadURI(url, path, name) {
 
 function get_path_run() {
     iimPlayCode('SET !EXTRACT {{!FOLDER_DATASOURCE}}');
-    return iimGetLastExtract().substr(0, iimGetLastExtract().length - 32);
+    return iimGetLastExtract().slice(0, -32);
 }
 
 path_list_download = get_path_run() + "Data\\manager_download\\";
