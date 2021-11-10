@@ -238,13 +238,12 @@ var temp = "";
 function get_link_video(path) {
     var capture_resource = window.performance.getEntriesByType("resource");
     while (true) {
-        for (var i = capture_resource.length-1; i >= 0 ; i--) {
+        for (var i = 0; i < capture_resource.length ; i++) {
             let link = capture_resource[i].name;
-            if (link.endsWith("/index.m3u8")) { //type xmlhttprequest
-                if (temp == link) break;
+            if (link.endsWith("/index.m3u8") && temp != link) { //type xmlhttprequest
                 temp = link;
-                window.performance.clearResourceTimings();
                 let list_m = request(link);
+                window.performance.clearResourceTimings();
                 
                 
                 let max = 0;
