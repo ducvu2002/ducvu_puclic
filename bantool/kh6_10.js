@@ -239,29 +239,29 @@ var temp = "";
 function get_link_video(path) {
     var capture_resource = window.performance.getEntriesByType("resource");
     while (true) {
-        for (var i = 0; i < capture_resource.length ; i++) {
+        for (var i = 0; i < capture_resource.length; i++) {
             let link = capture_resource[i].name;
             if (link.endsWith("/index.m3u8") && temp != link) { //type xmlhttprequest
                 temp = link;
                 let list_m = request(link);
                 window.performance.clearResourceTimings();
-                
-                
+
+
                 let max = 0;
                 let j;
                 while ((j = list_m.indexOf("cdnkey-")) != -1) {
-                    list_m = list_m.substr(j+7);
+                    list_m = list_m.substr(j + 7);
                     num = Number(list_m.substr(0, list_m.indexOf("p")));
                     if (max < num) max = num;
                 }
-                
-                
-                
+
+
+
                 let link_main = link.slice(0, -10);
                 let audio = `${link_main}cdnkey-${max}p/index-a1.m3u8`;
                 let video = `${link_main}cdnkey-${max}p/index-v1.m3u8`;
-                
-                
+
+
 
                 content_text = `${path}|ffmpeg -i "${video}" -i "${audio}" -c:v copy -c:a aac "${path}"`;
                 write_data(path_list_download, "list_download.csv", content_text);
@@ -273,9 +273,6 @@ function get_link_video(path) {
         iimPlayCode('WAIT SECONDS=1');
     }
 }
-
-
-
 
 
 
@@ -292,7 +289,7 @@ function get_csv_path(path, line, col) {
 
 
 
-function login (user, pass) {
+function login(user, pass) {
     iimPlayCode(
         `
         EVENT TYPE=CLICK SELECTOR=".at-start" BUTTON=0
@@ -302,13 +299,7 @@ function login (user, pass) {
         EVENT TYPE=CLICK SELECTOR=".v-btn--block" BUTTON=0
         `
     );
-    while (window.document.querySelector(".navigation-item__image-wrapper") == null) {
-        iimPlayCode('WAIT SECONDS=1');
-    }
 }
-
-
-
 
 
 
@@ -322,18 +313,16 @@ pass = get_csv_path(path_run + "account.txt", 2, 1);
 
 
 
-iimPlayCode("URL GOTO=https://tuduymo.com");
-while (window.document.querySelector(".navigation-item__image-wrapper") == null) {
-    if (window.document.querySelector(".at-start") != null && acc != "") {
-        login(acc, pass);
-    }
-    iimPlayCode('WAIT SECONDS=1');
-}
-iimPlayCode("URL GOTO=" + url_khoahoc.replace(/ /g, '<SP>'));
 
+iimPlayCode("URL GOTO=" + url_khoahoc.replace(/ /g, '<SP>'));
 while ((dom_khoa_hoc = window.document.querySelector(".cursor-pointer .content--left.subtitle-2")) == null || window.document.querySelector(".base__loading") != null) {
-    if (window.document.querySelector(".at-start") != null && acc != "") {
-        login(acc, pass);
+    if (window.document.querySelector(".at-start") != null) {
+        if (acc != "") {
+            login(acc, pass);
+        }
+        while (window.document.querySelector(".navigation-item__image-wrapper") == null) {
+            iimPlayCode('WAIT SECONDS=1');
+        }
         iimPlayCode("URL GOTO=" + url_khoahoc.replace(/ /g, '<SP>'));
     }
     iimPlayCode('WAIT SECONDS=1');
