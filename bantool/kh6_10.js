@@ -123,8 +123,9 @@ function get_path_run() {
     return iimGetLastExtract().slice(0, -32);
 }
 
+path_run = get_path_run();
 
-path_list_download = get_path_run() + "Data\\manager_download\\";
+path_list_download = path_run + "Data\\manager_download\\";
 //title
 write_data(path_list_download, "list_download.csv", "Download video tuduymo.com (" + new Date().getTime() + ")");
 //so_luong
@@ -276,17 +277,65 @@ function get_link_video(path) {
 
 
 
+
+
+
+function get_csv_path(path, line, col) {
+    path = path.replace(/ /g, '<SP>');
+    iimPlayCode(
+        'SET !DATASOURCE ' + path + "\n" +
+        'SET !DATASOURCE_LINE ' + line + "\n" +
+        'SET !EXTRACT {{!COL' + col + '}}'
+    );
+    return iimGetLastExtract();
+}
+
+
+
+function login (user, pass) {
+    iimPlayCode(
+        `
+        EVENT TYPE=CLICK SELECTOR=".at-start" BUTTON=0
+        EVENTS TYPE=KEYPRESS SELECTOR="input[type='email']" CHARS="${user}"
+        SET !ENCRYPTION NO
+        EVENTS TYPE=KEYPRESS SELECTOR="input[type='password']" CHARS="${pass}"
+        EVENT TYPE=CLICK SELECTOR=".v-btn--block" BUTTON=0
+        `
+    );
+    while (window.document.querySelector(".navigation-item__image-wrapper") == null) {
+        iimPlayCode('WAIT SECONDS=1');
+    }
+}
+
+
+
+
+
+
+
 path_save = get_csv(1, 1);
 url_khoahoc = get_csv(2, 1);
 
+
+acc = get_csv_path(path_run + "account.txt", 1, 1);
+pass = get_csv_path(path_run + "account.txt", 2, 1);
+
+
+
 iimPlayCode("URL GOTO=https://tuduymo.com");
 while (window.document.querySelector(".navigation-item__image-wrapper") == null) {
+    if (window.document.querySelector(".at-start") != null && acc != "") {
+        login(acc, pass);
+    }
     iimPlayCode('WAIT SECONDS=1');
 }
 iimPlayCode("URL GOTO=" + url_khoahoc.replace(/ /g, '<SP>'));
 
-
 while ((dom_khoa_hoc = window.document.querySelector(".cursor-pointer .content--left.subtitle-2")) == null || window.document.querySelector(".base__loading") != null) {
+    if (window.document.querySelector(".at-start") != null && acc != "") {
+        login(acc, pass);
+        iimPlayCode("URL GOTO=" + url_khoahoc.replace(/ /g, '<SP>'));
+    }
     iimPlayCode('WAIT SECONDS=1');
 }
 dom_khoa_hoc.click();
