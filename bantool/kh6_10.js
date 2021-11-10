@@ -1,29 +1,3 @@
-var request = function(url,data = null){
- results="";
- var xmlhttp= new window.XMLHttpRequest;
-  try {
-  var type = data==null?"GET":"POST";
-  xmlhttp.open(type, url, false);
-  xmlhttp.onreadystatechange=function() {
-     if (xmlhttp.readyState==4 ) {
-        if(xmlhttp.status==200 || xmlhttp.status==500 ){
-           results = xmlhttp.responseText;
-           //window.alert(results);
-           }
-        }
-   };
-   xmlhttp.send(data);
- } catch (e) {};
-  return results;
-}
-
-
-
-
-
-
-
-
 iimPlayCode('URL GOTO=about:newtab');
 var x, y1;
 x2 = 9999999999999;
@@ -269,7 +243,6 @@ function get_link_video(path) {
             if (link.endsWith("/index.m3u8") && temp != link) { //type xmlhttprequest
                 temp = link;
                 window.performance.clearResourceTimings();
-                iimPlayCode('WAIT SECONDS=1');
                 let list_m = request(link);
                 
                 
