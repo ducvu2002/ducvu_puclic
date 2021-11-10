@@ -238,9 +238,10 @@ var temp = "";
 function get_link_video(path) {
     var capture_resource = window.performance.getEntriesByType("resource");
     while (true) {
-        for (var i = 0; i < capture_resource.length; i++) {
+        for (var i = capture_resource.length-1; i >= 0 ; i--) {
             let link = capture_resource[i].name;
-            if (link.endsWith("/index.m3u8") && temp != link) { //type xmlhttprequest
+            if (link.endsWith("/index.m3u8")) { //type xmlhttprequest
+                if (temp == link) break;
                 temp = link;
                 window.performance.clearResourceTimings();
                 let list_m = request(link);
@@ -248,8 +249,8 @@ function get_link_video(path) {
                 
                 let max = 0;
                 let j;
-                while ((j = list_m.indexOf("cdnkey")) != -1) {
-                    list_m = list_m.substr(i+7);
+                while ((j = list_m.indexOf("cdnkey-")) != -1) {
+                    list_m = list_m.substr(j+7);
                     num = Number(list_m.substr(0, list_m.indexOf("p")));
                     if (max < num) max = num;
                 }
