@@ -285,10 +285,10 @@ function get_exam(url, path) {
             iimPlayCode('WAIT SECONDS=1');
             break;
         } else {
-            while (window.document.querySelector(".BTB") == null) {
+            while (window.document.querySelector("id^='answerSheetItem']") == null) {
                 iimPlayCode('WAIT SECONDS=1');
             }
-            select_da = window.document.getElementsByClassName("BTB");
+            select_da = window.document.querySelectorAll("[id^='answerSheetItem']");
             for (let i = 0; i < select_da.length; i++) {
                 try {
                     if (select_da[i].querySelector(".radioButtonAnswer") != null) {
