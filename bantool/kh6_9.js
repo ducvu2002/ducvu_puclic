@@ -285,7 +285,7 @@ function get_exam(url, path) {
             iimPlayCode('WAIT SECONDS=1');
             break;
         } else {
-            while (window.document.querySelector("id^='answerSheetItem']") == null) {
+            while (window.document.querySelector("[id^='answerSheetItem']") == null) {
                 iimPlayCode('WAIT SECONDS=1');
             }
             select_da = window.document.querySelectorAll("[id^='answerSheetItem']");
