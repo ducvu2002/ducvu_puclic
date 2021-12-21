@@ -366,7 +366,7 @@ function get_exam(url, path) {
         try {
             return Number(group.querySelector("[id^='childQuestion-']").id.replace("childQuestion-", "")) + 1;
         } catch {
-            return Number(qroup.id.replace("mainViewPanel-", "")) + 1;
+            return Number(group.id.replace("mainViewPanel-", "")) + 1;
         }
     }
 
@@ -375,7 +375,7 @@ function get_exam(url, path) {
             list_question = group.querySelectorAll("[id^='childQuestion-']");
             return Number(list_question[list_question.length - 1].id.replace("childQuestion-", "")) + 1;
         } catch {
-            return Number(qroup.id.replace("mainViewPanel-", "")) + 1;
+            return Number(group.id.replace("mainViewPanel-", "")) + 1;
         }
     }
 
