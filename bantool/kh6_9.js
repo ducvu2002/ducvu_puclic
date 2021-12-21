@@ -363,12 +363,20 @@ function get_exam(url, path) {
 
 
     function identify_first_question_in_group(group) {
-        return Number(group.querySelector("[id^='childQuestion-']").id.replace("childQuestion-", "")) + 1;
+        try {
+            return Number(group.querySelector("[id^='childQuestion-']").id.replace("childQuestion-", "")) + 1;
+        } catch {
+            return Number(qroup.id.replace("mainViewPanel-", "")) + 1;
+        }
     }
 
     function identify_end_question_in_group(group) {
-        list_question = group.querySelectorAll("[id^='childQuestion-']");
-        return Number(list_question[list_question.length - 1].id.replace("childQuestion-", "")) + 1;
+        try {
+            list_question = group.querySelectorAll("[id^='childQuestion-']");
+            return Number(list_question[list_question.length - 1].id.replace("childQuestion-", "")) + 1;
+        } catch {
+            return Number(qroup.id.replace("mainViewPanel-", "")) + 1;
+        }
     }
 
     let dom_capture = window.document.querySelector(".game-content-panel");
