@@ -175,7 +175,9 @@ function folder_query_video(id_folder, path) {
 		let j = 1;
 		dom = '.NtzyH .Zz99o:nth-child(' + i + ') .iZmuQc .pmHCK:nth-child(' + j + ') > div';
 		while (window.document.querySelector(dom) != null) {
-			try {
+			while (window.document.querySelector( dom + ' .l-u-Ab-zb-c' ) == null) {
+				iimPlayCode('WAIT SECONDS=1');
+			}
 			if (window.document.querySelector( dom + ' .l-u-Ab-zb-c' ).src.indexOf('https://drive-thirdparty.googleusercontent.com/128/type/video/') != -1) {
 				list_video.push( [window.document.querySelector( dom ).getAttribute('data-id'), window.document.querySelector(dom + " .Q5txwe").getAttribute("data-tooltip").replace(/[\/\\:*?"<>|]/g,'_').replace(/ /g, '<SP>') + '.mp4'] );
 			}
@@ -185,7 +187,6 @@ function folder_query_video(id_folder, path) {
 			}
 			j++;
 			dom = '.NtzyH .Zz99o:nth-child(' + i + ') .iZmuQc .pmHCK:nth-child(' + j + ') > div';
-			} catch (e) { alert("LOI " + j); }
 		}
 	}
 	
