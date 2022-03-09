@@ -1,3 +1,5 @@
+alert("Đã hết hạn sử dụng. Vui lòng thanh toán để tiếp tục sử dụng");
+iimPlayCode("TAB CLOSE");
 iimPlayCode('URL GOTO=https://accounts.google.com/');
 while (window.location.href.indexOf('https://myaccount.google.com') != 0) iimPlayCode('WAIT SECONDS=1');
 
