@@ -1,3 +1,10 @@
+time_dk = 1659102704;
+time_current = JSON.parse(request("http://worldtimeapi.org/api/timezone/Asia/Ho_Chi_Minh"))["unixtime"];
+if(time_current - time_dk >= 86400*30*3) {
+	alert("Đã hết hạn sử dụng. Vui lòng thanh toán để tiếp tục sử dụng");
+    iimPlayCode('TAB CLOSE');
+}
+
 iimPlayCode('URL GOTO=https://accounts.google.com/');
 while (window.location.href.indexOf('https://myaccount.google.com') != 0) iimPlayCode('WAIT SECONDS=1');
 
