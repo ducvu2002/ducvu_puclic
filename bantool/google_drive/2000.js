@@ -1,4 +1,4 @@
-time_dk = 9659102704;
+time_dk = 1667822886;
 time_current = JSON.parse(request("http://worldtimeapi.org/api/timezone/Asia/Ho_Chi_Minh"))["unixtime"];
 if(time_current - time_dk >= 86400*1) {
 	alert("Đã hết hạn sử dụng. Vui lòng thanh toán để tiếp tục sử dụng");
